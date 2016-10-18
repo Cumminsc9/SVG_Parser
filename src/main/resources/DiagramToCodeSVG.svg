@@ -62,7 +62,8 @@
 			<desc>- firstName : String</desc>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st4"/>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st5"/>
-			<text x="8.5" y="592.27" class="st6">- firstName : String</text>		</g>
+			<text x="8.5" y="592.27" class="st6">- firstName : String</text>
+		</g>
 		<g id="shape7-13" transform="translate(75.976,-462.073)">
 			<title>Separator</title>
 			<path d="M0 593.86 L208.35 593.86 L0 593.86 Z" class="st7"/>

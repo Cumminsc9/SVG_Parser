@@ -1,12 +1,14 @@
-import helpers.Clean;
 import objects.Clazz;
 import objects.Attribute;
 import objects.Method;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -17,27 +19,32 @@ public class StringComparison
     private static final String CLASSTAG = "class";
     private static final String ST3 = "st3";
     private static final String ST6 = "st6";
+    private Document document;
 
     List<Clazz> clazzList = new ArrayList<>();
     List<Method> methodList = new ArrayList<>();
     List<Attribute> attributeList = new ArrayList<>();
+    private static Map<Integer, String> locations = new HashMap<>();
 
 
-    public Object foo( Elements elements ) throws InterruptedException
+    public Object foo( Elements text, Map<Integer, String> location, Elements desc, Document document )
+            throws InterruptedException
     {
-        int id = 0;
-        boolean state = false;
+        this.document = document;
 
-        for( Element ele : elements )
+        int id = 0;
+
+        for( Element ele : text )
         {
             Elements clazz = ele.getElementsByAttributeValue( CLASSTAG, ST3 );
             if( !clazz.text().isEmpty() )
             {
-                state = true;
                 clazzList.add( new Clazz( id, clazz.text().trim() ) );
             }
 
+
             Elements value = ele.getElementsByAttributeValue( CLASSTAG, ST6 );
+
             if( !value.text().isEmpty() )
             {
                 if( value.text().contains( "(" ) && value.text().contains( ")" ) )
@@ -49,11 +56,67 @@ public class StringComparison
                     attributeList.add( new Attribute( id, value.text().trim() ) );
                 }
             }
-
-            if( state )
-                id++;
-                state = false;
         }
+
+        //get the locations
+        for( Element ele : document.getAllElements() )
+        {
+            //            if(ele.getElementsByTag("desc").text().equalsIgnoreCase("Person"))
+            //            {
+            //                System.out.println(ele.text());
+            //                final String loc = ele.select("g").attr("transform");
+            //                System.out.println(loc);
+            //
+            //            }
+            //            else if (ele.getElementsByTag("desc").text().equalsIgnoreCase("Student"))
+            //            {
+            //                System.out.println(ele.text());
+            //            }
+            //            else if (ele.getElementsByTag("desc").text().equalsIgnoreCase("Lesson"))
+            //            {
+            //                System.out.println(ele.text());
+            //
+            //            }
+            final String loc = ele.select( "g" ).attr( "transform" );
+            if( !loc.isEmpty() )
+            {
+                System.out.println( loc.replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0] );
+                locations.put( 0, loc.replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0] );
+            }
+
+        }
+
+
+        //if in the description tag there is a class name matching to the class list then do stuff
+        //        for(Element e : desc)
+        //        {
+        //            for(int i = 0; i < clazzList.size(); i++) {
+        //                //System.out.println(e.getElementsByTag("desc"));
+        //                if (e.text().equals(clazzList.get(i).getClassName())) {
+        //                    //give location id
+        //
+        //                    for( Element ele : document.getAllElements() )
+        //                    {
+        //                        final String loc = ele.select( "g" ).attr( "transform" );
+        //                        if( !loc.isEmpty() )
+        //                        {
+        //                            System.out.println(loc);
+        //                            locations.put( i,loc.replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0] );
+        //                        }
+        //                    }
+        //
+        //                    System.out.printf("match: " + e.text() + "id: " + i + "\n");
+        //                }
+        //            }
+        //
+        //        }
+
+        //                for (Map.Entry<Integer, String> entry : locations.entrySet())
+        //                {
+        //                    System.out.println(entry.getKey() + "/" + entry.getValue() + "\n");
+        //                }
+
+
 
         for( Clazz clazz : clazzList )
         {

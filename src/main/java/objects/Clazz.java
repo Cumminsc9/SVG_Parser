@@ -13,6 +13,10 @@ public class Clazz
         this.id = id;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
     @Override
     public String toString() {
         return id + " " + className;
