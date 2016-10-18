@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.InputStream;
 
 /**
  * Created by c015406c on 18/10/2016.
@@ -32,6 +34,7 @@ public class FileParser
 
     private static FileReader readFile() throws Exception
     {
-        return new FileReader("C:\\Users\\c015406c\\Downloads\\Visio Docs\\Sample.svg");
+        final File file = new File( "src/main/resources/Sample.svg" );
+        return new FileReader( file.getAbsolutePath() );
     }
 }

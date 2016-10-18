@@ -38,6 +38,14 @@
       <property name="caretWidth" class="java.lang.Integer" />
     </properties>
   </component>
+  <component name="EclipseCodeFormatter">
+    <option name="defaultSettings" value="true" />
+    <option name="formatter" value="ECLIPSE" />
+    <option name="id" value="1476798479183" />
+    <option name="name" value="default" />
+    <option name="pathToConfigFileJava" value="$USER_HOME$/Dropbox/Staffordshire University/javaCodeFormatter.xml" />
+    <option name="selectedJavaProfile" value="javaCodeFormatter" />
+  </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
