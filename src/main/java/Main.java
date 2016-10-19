@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class Main
 {
-    private static Map<String[], String> elementMap = new HashMap<>();
+    private static Map<String, String[]> elementMap = new HashMap<>();
     private static List<Relation> relations = new ArrayList<>();
 
 
@@ -34,13 +34,12 @@ public class Main
                 Elements textElements = locationElement.select( "text" );
 
                 Elements titleElements = locationElement.select( "title" );
-                String enumTtile = CheckTitle.checkTitle( titleElements.text() );
-                if( enumTtile != null )
+                String enumTitle = CheckTitle.checkTitle( titleElements.text() );
+                if( enumTitle != null )
                 {
                     String theText = textElements.get( 0 ).text();
-
-                    String[] stringArray = { locationAttribute, theText };
-                    elementMap.put( stringArray, enumTtile );
+                    String[] stringArray = { theText, enumTitle };
+                    elementMap.put( locationAttribute, stringArray );
                 }
             }
         }
@@ -63,11 +62,11 @@ public class Main
         //        }
 
 
-        for( Map.Entry<String[], String> m : elementMap.entrySet() )
+        for( Map.Entry<String, String[]> m : elementMap.entrySet() )
         {
-            String location = m.getKey()[0].replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
-            String value = m.getKey()[1];
-            String type = m.getValue();
+            String location = m.getKey().replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
+            String value = m.getValue()[0];
+            String type = m.getValue()[1];
             relations.add( new Relation( location, value, type ) );
 
 
