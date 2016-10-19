@@ -44,35 +44,12 @@ public class Main
             }
         }
 
-        //        Elements titleElements = locationElement.select( "title" );
-        //        for( Element title : titleElements )
-        //        {
-        //            String enumTitle = CheckTitle.checkTitle( title.text() );
-        //
-        //            if( enumTitle != null )
-        //            {
-        //                String attr = locationElement.select( "g" ).attr( "transform" );
-        //                Elements textElements = locationElement.select( "text" );
-        //                for( Element text : textElements )
-        //                {
-        //                    String[] stringArray = { attr, text.text() };
-        //                    elementMap.put( stringArray, enumTitle );
-        //                }
-        //            }
-        //        }
-
-
         for( Map.Entry<String, String[]> m : elementMap.entrySet() )
         {
             String location = m.getKey().replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
             String value = m.getValue()[0];
             String type = m.getValue()[1];
             relations.add( new Relation( location, value, type ) );
-
-
-//            String location = m.getKey().replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
-//            String value = m.getValue();
-//            relations.add( new Relation( location, value ) );
         }
 
         for( Relation relation : relations )

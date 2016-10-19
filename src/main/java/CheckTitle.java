@@ -70,4 +70,15 @@ class CheckTitle
 
         return null;
     }
+
+
+    static String checkMember()
+    {
+        if( "".contains( "(" ) && "".contains( ")" ) )
+        {
+            return "";
+        }
+
+        return "";
+    }
 }
