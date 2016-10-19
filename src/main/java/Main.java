@@ -1,8 +1,11 @@
+import enums.Title;
+import objects.Method;
 import objects.Relation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.File;
 import java.util.*;
 
@@ -49,55 +52,33 @@ public class Main
             String location = m.getKey().replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
             String value = m.getValue()[0];
             String type = m.getValue()[1];
+
             relations.add( new Relation( location, value, type ) );
         }
 
-        for( Relation relation : relations )
+        for( ArrayList<ClassMembers> classMemberses : SortClasses.arrangeMethodAndVariables( relations ))
         {
-            System.out.println( relation );
+            for( ClassMembers tempObject : classMemberses )
+            {
+                CheckTitle.checkMember( tempObject );
+                System.out.println( tempObject );
+            }
         }
 
-        //
-        //        Iterator<Map.Entry<String, String>> iter = elementMap.entrySet().iterator();
-        //        while( iter.hasNext() )
-        //        {
-        //            Map.Entry<String, String> entry = iter.next();
-        ////            if( entry.getValue().isEmpty() )
-        ////            {
-        ////                iter.remove();
-        ////            }
-        //
-        //            //String newKey = entry.getKey().replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
-        //
-        //            newElementMap.put( entry.getKey(), entry.getValue() );
-        //        }
-        //
-        //        for( Map.Entry<String, String> m : newElementMap.entrySet() )
-        //        {
-        //            System.out.println( m.getKey() + " " + m.getValue() );
-        //        }
 
 
-
-
-        //System.out.println( f );
-
-
-        //StringComparison stringComparison = new StringComparison();
-        //stringComparison.foo( textTag, locations , descTag, doc);
+//        for( ArrayList<ClassMembers> classMemberses : SortClasses.arrangeMethodAndVariables( relations ))
+//        {
+//            for( ClassMembers classMembers : classMemberses)
+//            {
+//                String className;
+//                Method method;
+//
+//                if( classMembers.getClassType().equals( Title.METHOD.getType() ) )
+//                {
+//                    ParseMethod.parseMethod( classMembers.getClassValue() );
+//                }
+//            }
+//        }
     }
-
-    //
-    //    private Main()
-    //    {
-    //        stringFile = FileParser.parseFile();
-    //        foo();
-    //    }
-    //
-    //
-    //    private void foo()
-    //    {
-    //        Document doc = Jsoup.parse( stringFile );
-    //        System.out.println( doc.getElementById( "g" ) );
-    //    }
 }

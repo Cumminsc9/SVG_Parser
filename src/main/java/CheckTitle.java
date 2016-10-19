@@ -3,9 +3,9 @@ import enums.Title;
 /**
  * Created by Tom on 19/10/2016.
  */
-class CheckTitle
+public class CheckTitle
 {
-    static String checkTitle( String title )
+    public static String checkTitle( final String title )
     {
         if( title.contains( Title.CLAZZ.getType() ) )
         {
@@ -72,13 +72,23 @@ class CheckTitle
     }
 
 
-    static String checkMember()
+    public static void checkMember( final ClassMembers members )
     {
-        if( "".contains( "(" ) && "".contains( ")" ) )
-        {
-            return "";
-        }
+        final String classMember = members.getClassName();
+        final String classMethod = members.getClassValue();
+        final String className = members.getClassValue().split( "\\(" )[0].split(" ")[1];
 
-        return "";
+        if( classMethod.contains( "(" ) && classMethod.contains( ")" ) && classMember.startsWith( className ) )
+        {
+            members.setClassType( Title.CONSTRUCTOR.getType() );
+        }
+        else if( classMethod.contains( "(" ) && classMethod.contains( ")" ) )
+        {
+            members.setClassType( Title.METHOD.getType() );
+        }
+        else
+        {
+            members.setClassType( Title.VARIABLE.getType() );
+        }
     }
 }

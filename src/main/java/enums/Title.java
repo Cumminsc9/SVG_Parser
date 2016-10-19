@@ -19,7 +19,10 @@ public enum Title
     COMPOSITION("Composition"),
     DEPENDENCY("Dependency"),
     DIRECTED_ASSOCIATION("Directed Association"),
-    INTERFACE_REALIZATION("Interface Realization");
+    INTERFACE_REALIZATION("Interface Realization"),
+    CONSTRUCTOR("Constructor"),
+    METHOD("Method"),
+    VARIABLE("Variable");
     
     private String type;
 

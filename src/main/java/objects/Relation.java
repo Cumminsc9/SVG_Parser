@@ -10,13 +10,6 @@ public class Relation
     private String type;
 
 
-    public Relation( String location, String value )
-    {
-        this.location = location;
-        this.value = value;
-    }
-
-
     public Relation( String location, String value, String type )
     {
         this.location = location;
@@ -66,7 +59,7 @@ public class Relation
     {
         if( type != null )
         {
-            return "Location: " + location + "\tValue: " + value  + "\tType: " + type;
+            return "Location: " + location + "\tType: " + type + "\t\tValue: " + value  ;
         }
         else
         {
