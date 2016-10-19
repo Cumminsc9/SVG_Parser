@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class Main
 {
-    private static Map<String, String> elementMap = new HashMap<>();
+    private static Map<String[], String> elementMap = new HashMap<>();
     private static List<Relation> relations = new ArrayList<>();
 
 
@@ -24,8 +24,6 @@ public class Main
         final Document doc = Jsoup.parse( file, "UTF-8", "http://example.com/" );
         //Elements textTag = doc.getElementsByTag( "text" );
         //Elements descTag = doc.getElementsByTag( "desc" );
-
-        int count = 0;
 
         for( Element element : doc.getAllElements() )
         {
@@ -39,17 +37,13 @@ public class Main
                 String enumTtile = CheckTitle.checkTitle( titleElements.text() );
                 if( enumTtile != null )
                 {
-                    for( Element text : textElements )
-                    {
-                        //String[] stringArray = { locationAttribute, text.text() };
-                        elementMap.put( locationAttribute, text.text() );
-                    }
+                    String theText = textElements.get( 0 ).text();
+
+                    String[] stringArray = { locationAttribute, theText };
+                    elementMap.put( stringArray, enumTtile );
                 }
             }
-            count++;
         }
-
-        System.out.println( count );
 
         //        Elements titleElements = locationElement.select( "title" );
         //        for( Element title : titleElements )
@@ -69,17 +63,17 @@ public class Main
         //        }
 
 
-        for( Map.Entry<String, String> m : elementMap.entrySet() )
+        for( Map.Entry<String[], String> m : elementMap.entrySet() )
         {
-//            String location = m.getKey()[0].replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
-//            String value = m.getKey()[1];
-//            String type = m.getValue();
-//            relations.add( new Relation( location, value, type ) );
+            String location = m.getKey()[0].replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
+            String value = m.getKey()[1];
+            String type = m.getValue();
+            relations.add( new Relation( location, value, type ) );
 
 
-            String location = m.getKey().replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
-            String value = m.getValue();
-            relations.add( new Relation( location, value ) );
+//            String location = m.getKey().replaceAll( "[^\\d.]", " " ).trim().replace( " ", "," ).split( "," )[0];
+//            String value = m.getValue();
+//            relations.add( new Relation( location, value ) );
         }
 
         for( Relation relation : relations )
