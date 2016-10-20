@@ -70,12 +70,12 @@ public class Main
         }
 
         // Always goes after the above loop.
-        OutputClasses.outputClasses( clazzToBuilds );
+        //OutputClasses.outputClasses( clazzToBuilds );
 
         for( ClazzToBuild clazzToBuild : clazzToBuilds )
         {
             BuildClass.buildClass(clazzToBuild);
-            break;
+            //break;
         }
     }
 }
