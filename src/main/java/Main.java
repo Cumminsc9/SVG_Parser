@@ -54,7 +54,7 @@ public class Main extends Application
 
         startBtn.setOnAction(event -> {
             try {
-                BeginConversion();
+                beginConversion();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -69,7 +69,7 @@ public class Main extends Application
         primaryStage.show();
     }
 
-    public static void BeginConversion() throws Exception{
+    public static void beginConversion() throws Exception{
         //Create starting label
         Label startLabel = new Label("Starting...");
         pane.getChildren().add(startLabel);
