@@ -1,6 +1,7 @@
 import creation.BuildClass;
 import creation.ClassWriter;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import objects.*;
 import org.jsoup.Jsoup;
@@ -21,8 +23,14 @@ import parsers.ParseConstructor;
 import parsers.ParseMethod;
 import parsers.ParseVariable;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -33,7 +41,7 @@ public class Main extends Application
 {
     static Stage stage;
     static StackPane pane;
-    static TextField inputField;
+    static String inputPath;
     static GridPane grid;
     static Label startLabel;
 
@@ -58,7 +66,6 @@ public class Main extends Application
         //Sets
         pane = new StackPane();
         stage = primaryStage;
-        inputField = new TextField();
 
         //setup grid
         grid = new GridPane();
@@ -68,6 +75,8 @@ public class Main extends Application
         grid.setPadding( new Insets( 25, 25, 25, 25 ) );
 
         Scene scene = new Scene( grid, 340, 140 );
+
+        stage.setResizable(false);
 
         //create controls
         Text title = new Text( "Welcome to SVG to Java" );
@@ -92,9 +101,20 @@ public class Main extends Application
 
         startLabel = new Label( "Begin by entering the path of the .svg file" );
 
+
+        FileChooser fileChooser = new FileChooser();
+        Button browseBtn = new Button("Browse a SVG File");
+
+        browseBtn.setOnAction(e -> {
+            File file = fileChooser.showOpenDialog(stage);
+            if (file != null) {
+                openSVG(file);
+            }
+        });
+
         //add controls to grid
         grid.add( title, 0, 0, 2, 1 );
-        grid.add( inputField, 0, 2 );
+        grid.add( browseBtn, 0, 2 );
         grid.add( startBtn, 1, 2 );
         grid.add( startLabel, 0, 1, 2, 1 );
 
@@ -109,11 +129,16 @@ public class Main extends Application
         primaryStage.show();
     }
 
+    private void openSVG(File file) {
+        inputPath = file.getPath();
+        startLabel.setText(file.getPath());
+        pane.requestLayout();
+    }
 
     private static void beginConversion() throws Exception
     {
         //Create starting label
-        if( inputField.getText().isEmpty() )
+        if( inputPath.isEmpty() )
         {
             startLabel.setText( "Please enter path..." );
             pane.requestLayout();
@@ -123,7 +148,7 @@ public class Main extends Application
             startLabel.setText( "Starting" );
             pane.requestLayout();
 
-            final File file = new File( inputField.getText() );//"src/main/resources/DiagramToCodeSVG.svg" );
+            final File file = new File( inputPath );//"src/main/resources/DiagramToCodeSVG.svg" );
             try
             {
                 final Document doc = Jsoup.parse( file, "UTF-8", "http://example.com/" );
