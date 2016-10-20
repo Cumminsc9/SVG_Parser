@@ -1,6 +1,9 @@
+package parsers;
+
 import enums.AccessType;
 import enums.Title;
 import objects.Attribute;
+import objects.ClassMember;
 import objects.Method;
 
 
@@ -15,7 +18,7 @@ public class ParseVariable
 {
     private static List<Attribute> variableList = new ArrayList<>();
 
-    public static List<Attribute> parseVariable(final ArrayList<ClassMembers> method )
+    public static List<Attribute> parseVariable(final ArrayList<ClassMember> method )
     {
         List<Attribute> variableList = new ArrayList<>();
         //LinkedHashMap<String, String> newHashMap = null;
@@ -24,7 +27,7 @@ public class ParseVariable
         String returnType = null;
 
 
-        for( ClassMembers classMembers : method )
+        for( ClassMember classMembers : method )
         {
             if( !classMembers.getClassType().equals( Title.CONSTRUCTOR.getType() ) && !classMembers.getClassType().equals( Title.METHOD.getType() ) )
             {
