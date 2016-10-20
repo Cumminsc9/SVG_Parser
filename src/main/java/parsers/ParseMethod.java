@@ -1,5 +1,8 @@
+package parsers;
+
 import enums.AccessType;
 import enums.Title;
+import objects.ClassMember;
 import objects.Method;
 
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ import java.util.regex.Pattern;
  */
 public class ParseMethod
 {
-    public static List<Method> parseMethod( final ArrayList<ClassMembers> method )
+    public static List<Method> parseMethod( final ArrayList<ClassMember> method )
     {
         List<Method> methodList = new ArrayList<>();
         LinkedHashMap<String, String> newHashMap = null;
@@ -21,7 +24,7 @@ public class ParseMethod
         String methodName = null;
         String returnType = null;
 
-        for( ClassMembers classMembers : method )
+        for( ClassMember classMembers : method )
         {
             if( !classMembers.getClassType().equals( Title.CONSTRUCTOR.getType() ) )
             {

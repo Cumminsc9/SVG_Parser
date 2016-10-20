@@ -1,9 +1,10 @@
 import enums.Title;
+import objects.ClassMember;
 
 /**
  * Created by Tom on 19/10/2016.
  */
-public class CheckTitle
+public class CheckInput
 {
     public static String checkTitle( final String title )
     {
@@ -72,7 +73,7 @@ public class CheckTitle
     }
 
 
-    public static void checkMember( final ClassMembers members )
+    public static void checkMember( final ClassMember members )
     {
         final String classMember = members.getClassName();
         final String classMethod = members.getClassValue();

@@ -1,9 +1,11 @@
 import creation.BuildClass;
+import helpers.OutputClasses;
 import objects.*;
-import objects.Attribute;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
+import parsers.ParseMethod;
+import parsers.ParseVariable;
 
 import java.io.File;
 import java.util.*;
@@ -35,7 +37,7 @@ public class Main
                 Elements textElements = locationElement.select( "text" );
 
                 Elements titleElements = locationElement.select( "title" );
-                String enumTitle = CheckTitle.checkTitle( titleElements.text() );
+                String enumTitle = CheckInput.checkTitle( titleElements.text() );
                 if( enumTitle != null )
                 {
                     String theText = textElements.get( 0 ).text();
@@ -56,53 +58,24 @@ public class Main
 
         List<ClazzToBuild> clazzToBuilds = new ArrayList<>();
 
-
-        for( ArrayList<ClassMembers> classMemberses : SortClasses.arrangeMethodAndVariables( relations ) )
+        for( ArrayList<ClassMember> classMemberses : SortClasses.arrangeMethodAndVariables( relations ) )
         {
-            for( ClassMembers tempObject : classMemberses )
+            for( ClassMember tempObject : classMemberses )
             {
-                CheckTitle.checkMember( tempObject );
+                CheckInput.checkMember( tempObject );
             }
 
             clazzToBuilds.add( new ClazzToBuild( classMemberses.get( 0 ).getClassName(),
                     ParseVariable.parseVariable( classMemberses ), ParseMethod.parseMethod( classMemberses ) ) );
         }
 
+        // Always goes after the above loop.
+        OutputClasses.outputClasses( clazzToBuilds );
+
         for( ClazzToBuild clazzToBuild : clazzToBuilds )
         {
             BuildClass.buildClass(clazzToBuild);
             break;
-//            System.out.println( clazzToBuild.getClassName() );
-//
-//            List<Method> classMethods = clazzToBuild.getClassMethods();
-//            for( Method classMethod : classMethods )
-//            {
-//                System.out.println( "\t" + classMethod );
-//            }
-//
-//            List<Attribute> classVariables = clazzToBuild.getClassVariables();
-//            for( Attribute classVariable : classVariables )
-//            {
-//                System.out.println( "\t" + classVariable );
-//            }
-//
-//            System.out.print( "\n" );
         }
-
-
-
-        //        for( ArrayList<ClassMembers> classMemberses : SortClasses.arrangeMethodAndVariables( relations ))
-        //        {
-        //            for( ClassMembers classMembers : classMemberses)
-        //            {
-        //                String className;
-        //                Method method;
-        //
-        //                if( classMembers.getClassType().equals( Title.METHOD.getType() ) )
-        //                {
-        //                    ParseMethod.parseMethod( classMembers.getClassValue() );
-        //                }
-        //            }
-        //        }
     }
 }
