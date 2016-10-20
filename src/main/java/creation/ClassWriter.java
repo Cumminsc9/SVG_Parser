@@ -22,8 +22,9 @@ public class ClassWriter
             }
             else
             {
-                System.out.println( "File already exists" );
-                return false;
+                System.out.println( "File already exists. Removing existing file." );
+                file.delete();
+                file.createNewFile();
             }
 
             // creates a FileWriter Object
