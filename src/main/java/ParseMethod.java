@@ -1,106 +1,129 @@
+import com.sun.org.apache.regexp.internal.RE;
+import enums.AccessType;
 import enums.Title;
 import objects.ClazzToBuild;
 import objects.Method;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Tom on 19/10/2016.
  */
 public class ParseMethod
 {
-    private static String methodName;
-    private static String methodType;
-    private static String methodAccessType;
-    private static List<String> methodArguments = new ArrayList<>();
-
     private static List<Method> methodList = new ArrayList<>();
 
     public static List<Method> parseMethod( final ArrayList<ClassMembers> method )
     {
+        LinkedHashMap<String, String> newHashMap = null;
+        String accessType = null;
+        String methodName = null;
+        String returnType = null;
+
         for( ClassMembers classMembers : method )
         {
-            if( !classMembers.getClassType().equals(Title.CONSTRUCTOR.getType()) && !classMembers.getClassType().equals( Title.VARIABLE.getType()) )
+            if( !classMembers.getClassType().equals( Title.CONSTRUCTOR.getType() ) )
             {
-                System.out.println( classMembers.getClassValue() );
+                if( !classMembers.getClassType().equals( Title.VARIABLE.getType() ) )
+                {
+                    final String classValue = classMembers.getClassValue();
+
+                    if( checkForMethodArguments( classValue ) )
+                    {
+                        newHashMap = parseArguments( classValue );
+                    }
+
+                    methodName = parseMethodName( classValue );
+                    accessType = parseAccessType( classValue );
+                    returnType = parseReturnType( classValue );
+                }
+            }
+
+            if( accessType != null && methodName != null && returnType != null )
+            {
+                methodList.add( new Method( accessType, returnType, methodName, newHashMap ) );
             }
         }
 
-        //if( !method.getClassType().equals(Title.CONSTRUCTOR.getType()) && !method.getClassType().equals( Title.VARIABLE.getType()) )
-        //{
-        //    String stringMethod = method.getClassValue();
-
-//
-//            String[] foo = parseArguments( stringMethod );
-//            if( foo != null ) {
-//                for (String s : foo) {
-//                    System.out.println(s);
-//                }
-//            }
-
-            //String[] strings = parseArguments(stringMethod);
-            //for (String string : strings) {
-            //    System.out.println( string );
-            //}
-
-
-//            String[] foo = method.getClassValue().split( " " );
-//
-//            for( String s : foo )
-//            {
-//                System.out.println( s );
-//            }
-//
-//            methodAccessType = foo[0];
-//            methodName = foo[1];
-//            methodType = foo[3];
-//            //methodArguments
-
-       // }
-       //
         return methodList;
     }
 
-    private static String[] parseArguments( String stringMethod )
+
+    private static LinkedHashMap<String, String> parseArguments( final String stringMethod )
     {
-        String f = stringMethod.split( "[\\(\\)]")[1].trim();
+        final String f = stringMethod.split( "[\\(\\)]" )[1].trim();
+        final LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
 
-        if(stringMethod.contains(",")) //contains comma
+        if( stringMethod.contains( "," ) )
         {
-            String[] newF = f.split(","); //array of arguements
+            String[] newF = f.split( "," );
 
-
-                for (String s : newF)
-                {
-                    if(!s.isEmpty())
-                    {
-                        System.out.println(s);
-                    }
-                }
+            for( String aNewF : newF )
+            {
+                String[] f2 = aNewF.split( " : " );
+                hashMap.put( f2[0].trim(), f2[1].trim() );
+            }
         }
         else
         {
-            if(!f.isEmpty())
+            if( !f.isEmpty() )
             {
-                String[] f2 = f.split(" ");
-
-
-                //System.out.println("f2[0]  = " + f2[0] );
-                //System.out.println("f2[1]  = " + f2[2] );
+                String[] f2 = f.split( " : " );
+                hashMap.put( f2[0].trim(), f2[1].trim() );
             }
         }
 
-        return new String[0];
+        return hashMap;
+    }
 
-//        String[] arguments = null;
-//
-//        if( !f.isEmpty() )
-//        {
-//            String[] tempArray = f.split(" ");
-//            arguments = new String[]{ tempArray[0], tempArray[2] };
-//        }
 
-       // return arguments;
+
+    private static String parseMethodName( final String stringMethod )
+    {
+        return stringMethod.split( "[^\\w\\s]" )[1].trim();
+    }
+
+
+
+    private static String parseReturnType( final String stringMethod )
+    {
+        return stringMethod.split( "[^\\w\\s]" )[4].trim();
+    }
+
+
+
+    private static String parseAccessType( final String stringMethod )
+    {
+        // Regex string = "^[^(]\w*"
+        final String accessType = stringMethod.substring( 0, 1 );
+
+        if( accessType.equals( AccessType.PUBLIC.getAccessType() ) )
+        {
+            return "public";
+        }
+        else if( accessType.equals( AccessType.PROTECTED.getAccessType() ) )
+        {
+            return "protected";
+        }
+        else if( accessType.equals( AccessType.PRIVATE.getAccessType() ) )
+        {
+            return "private";
+        }
+        else
+        {
+            return "public";
+        }
+    }
+
+
+    private static boolean checkForMethodArguments( final String stringMethod )
+    {
+        final Matcher matcher = Pattern.compile( "\\((\\W\\S.*?)\\)" ).matcher( stringMethod );
+        return matcher.find();
     }
 }

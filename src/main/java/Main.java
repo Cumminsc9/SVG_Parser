@@ -1,5 +1,5 @@
-import objects.ClazzToBuild;
-import objects.Relation;
+import objects.*;
+import objects.Attribute;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
@@ -24,7 +24,6 @@ public class Main
         final File file = new File( "src/main/resources/DiagramToCodeSVG.svg" );
         final Document doc = Jsoup.parse( file, "UTF-8", "http://example.com/" );
         //Elements textTag = doc.getElementsByTag( "text" );
-        //Elements descTag = doc.getElementsByTag( "desc" );
 
         for( Element element : doc.getAllElements() )
         {
@@ -70,7 +69,16 @@ public class Main
 
         for( ClazzToBuild clazzToBuild : clazzToBuilds )
         {
-            System.out.println( clazzToBuild.toString() );
+            List<Method> classMethods = clazzToBuild.getClassMethods();
+            for (Method classMethod : classMethods)
+            {
+                System.out.println( classMethod );
+            }
+
+            List<Attribute> classVariables = clazzToBuild.getClassVariables();
+            for (Attribute classVariable : classVariables) {
+                System.out.println( classVariable );
+            }
         }
 
 
