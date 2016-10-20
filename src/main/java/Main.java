@@ -1,3 +1,4 @@
+import creation.BuildClass;
 import objects.*;
 import objects.Attribute;
 import org.jsoup.Jsoup;
@@ -69,22 +70,23 @@ public class Main
 
         for( ClazzToBuild clazzToBuild : clazzToBuilds )
         {
-            //BuildClass.buildClass(clazzToBuild);
-            System.out.println( clazzToBuild.getClassName() );
-
-            List<Method> classMethods = clazzToBuild.getClassMethods();
-            for( Method classMethod : classMethods )
-            {
-                System.out.println( "\t" + classMethod );
-            }
-
-            List<Attribute> classVariables = clazzToBuild.getClassVariables();
-            for( Attribute classVariable : classVariables )
-            {
-                System.out.println( "\t" + classVariable );
-            }
-
-            System.out.print( "\n" );
+            BuildClass.buildClass(clazzToBuild);
+            break;
+//            System.out.println( clazzToBuild.getClassName() );
+//
+//            List<Method> classMethods = clazzToBuild.getClassMethods();
+//            for( Method classMethod : classMethods )
+//            {
+//                System.out.println( "\t" + classMethod );
+//            }
+//
+//            List<Attribute> classVariables = clazzToBuild.getClassVariables();
+//            for( Attribute classVariable : classVariables )
+//            {
+//                System.out.println( "\t" + classVariable );
+//            }
+//
+//            System.out.print( "\n" );
         }
 
 

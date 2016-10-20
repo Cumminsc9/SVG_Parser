@@ -11,7 +11,7 @@ public class CheckTitle
         {
             return Title.CLAZZ.getType();
         }
-        if( title.contains( Title.ENUM.getType() ) )
+        if( title.contains ( Title.ENUM.getType() ) )
         {
             return Title.ENUM.getType();
         }

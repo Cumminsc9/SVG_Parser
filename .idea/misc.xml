@@ -41,9 +41,9 @@
   <component name="EclipseCodeFormatter">
     <option name="defaultSettings" value="true" />
     <option name="formatter" value="ECLIPSE" />
-    <option name="id" value="1476798479183" />
+    <option name="id" value="1463764693830" />
     <option name="name" value="default" />
-    <option name="pathToConfigFileJava" value="$USER_HOME$/Dropbox/Staffordshire University/javaCodeFormatter.xml" />
+    <option name="pathToConfigFileJava" value="$USER_HOME$/Desktop/jetbrains-bitbucket-connector_IC-139.224/javaCodeFormatter.xml" />
     <option name="selectedJavaProfile" value="javaCodeFormatter" />
   </component>
   <component name="EntryPointsManager">

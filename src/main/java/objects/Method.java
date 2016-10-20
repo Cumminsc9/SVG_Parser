@@ -8,6 +8,39 @@ import java.util.HashMap;
 public class Method
 {
     private String methodName;
+
+    public String getMethodType() {
+        return methodType;
+    }
+
+    public void setMethodType(String methodType) {
+        this.methodType = methodType;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
+    public String getMethodAccessType() {
+        return methodAccessType;
+    }
+
+    public void setMethodAccessType(String methodAccessType) {
+        this.methodAccessType = methodAccessType;
+    }
+
+    public HashMap<String, String> getMethodArguments() {
+        return methodArguments;
+    }
+
+    public void setMethodArguments(HashMap<String, String> methodArguments) {
+        this.methodArguments = methodArguments;
+    }
+
     private String methodType;
     private String methodAccessType;
     private HashMap<String, String> methodArguments;
