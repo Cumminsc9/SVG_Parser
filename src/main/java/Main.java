@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import objects.*;
@@ -65,10 +67,13 @@ public class Main extends Application
         grid.setVgap( 10 );
         grid.setPadding( new Insets( 25, 25, 25, 25 ) );
 
-        Scene scene = new Scene( grid, 340, 200 );
+        Scene scene = new Scene( grid, 340, 140 );
 
         //create controls
         Text title = new Text( "Welcome to SVG to Java" );
+        title.setFont(Font.font ("Verdana", 20));
+        title.setFill(Color.RED);
+
         Button startBtn = new Button();
         startBtn.setText( "Start Conversion" );
 
