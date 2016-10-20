@@ -1,13 +1,10 @@
 import creation.BuildClass;
 import creation.ClassWriter;
-import helpers.OutputClasses;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import objects.*;
 import org.jsoup.Jsoup;
@@ -27,6 +24,8 @@ import java.util.*;
 
 public class Main extends Application
 {
+    static Stage stage;
+    static StackPane pane;
 
     private static Map<String, String[]> elementMap = new HashMap<>();
     private static List<Relation> relations = new ArrayList<>();
@@ -44,13 +43,16 @@ public class Main extends Application
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        pane = new StackPane();
+        stage = primaryStage;
+
         primaryStage.setTitle("SVG to Java");
 
         //Create button
-        Button btn = new Button();
-        btn.setText("Start Conversion");
+        Button startBtn = new Button();
+        startBtn.setText("Start Conversion");
 
-        btn.setOnAction(event -> {
+        startBtn.setOnAction(event -> {
             try {
                 BeginConversion();
             } catch (Exception e) {
@@ -58,15 +60,21 @@ public class Main extends Application
             }
         });
 
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        startBtn.setTranslateX(-190);
+        startBtn.setTranslateY(-80);
+        pane.getChildren().add(startBtn);
 
         //create window and show
-        primaryStage.setScene(new Scene(root, 300, 200));
+        primaryStage.setScene(new Scene(pane, 500, 200));
         primaryStage.show();
     }
 
     public static void BeginConversion() throws Exception{
+        //Create starting label
+        Label startLabel = new Label("Starting...");
+        pane.getChildren().add(startLabel);
+        pane.requestLayout();
+
         final File file = new File( "src/main/resources/DiagramToCodeSVG.svg" );
         final Document doc = Jsoup.parse( file, "UTF-8", "http://example.com/" );
         //Elements textTag = doc.getElementsByTag( "text" );
