@@ -69,16 +69,21 @@ public class Main
 
         for( ClazzToBuild clazzToBuild : clazzToBuilds )
         {
+            System.out.println( clazzToBuild.getClassName() );
+
             List<Method> classMethods = clazzToBuild.getClassMethods();
-            for (Method classMethod : classMethods)
+            for( Method classMethod : classMethods )
             {
-                System.out.println( classMethod );
+                System.out.println( "\t" + classMethod );
             }
 
             List<Attribute> classVariables = clazzToBuild.getClassVariables();
-            for (Attribute classVariable : classVariables) {
-                System.out.println( classVariable );
+            for( Attribute classVariable : classVariables )
+            {
+                System.out.println( "\t" + classVariable );
             }
+
+            System.out.print( "\n" );
         }
 
 
