@@ -79,9 +79,9 @@ public class Main extends Application
         stage.setResizable(false);
 
         //create controls
-        Text title = new Text( "Welcome to SVG to Java" );
+        Text title = new Text( "UML Diagram .SVG to Java" );
         title.setFont(Font.font ("Verdana", 20));
-        title.setFill(Color.RED);
+        title.setFill(Color.BLUE);
 
         Button startBtn = new Button();
         startBtn.setText( "Start Conversion" );
@@ -99,11 +99,11 @@ public class Main extends Application
             }
         } );
 
-        startLabel = new Label( "Begin by entering the path of the .svg file" );
+        startLabel = new Label( "Begin by getting the .svg file of your UML diagram" );
 
 
         FileChooser fileChooser = new FileChooser();
-        Button browseBtn = new Button("Browse a SVG File");
+        Button browseBtn = new Button("Get the SVG File");
 
         browseBtn.setOnAction(e -> {
             File file = fileChooser.showOpenDialog(stage);
