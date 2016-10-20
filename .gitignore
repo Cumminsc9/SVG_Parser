@@ -9,4 +9,4 @@
 # Maven
 log/
 target/
-idea/workspace.xml
+.idea/workspace.xml
