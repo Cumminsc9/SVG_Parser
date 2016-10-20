@@ -82,6 +82,8 @@ public class Main extends Application
         Text title = new Text( "UML Diagram .SVG to Java" );
         title.setFont(Font.font ("Verdana", 20));
         title.setFill(Color.BLUE);
+        Label madeBy = new Label("Built by Tom Cummins, Giovanni Lenguito, and Anil Rahman");
+        madeBy.setFont(Font.font ("Verdana", 7));
 
         Button startBtn = new Button();
         startBtn.setText( "Start Conversion" );
@@ -117,6 +119,8 @@ public class Main extends Application
         grid.add( browseBtn, 0, 2 );
         grid.add( startBtn, 1, 2 );
         grid.add( startLabel, 0, 1, 2, 1 );
+
+        grid.add(madeBy, 0, 3, 2, 1);
 
         //for debugging
         //grid.setGridLinesVisible(true);
