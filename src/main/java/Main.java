@@ -22,9 +22,9 @@ public class Main
 {
     private static Map<String, String[]> elementMap = new HashMap<>();
     private static List<Relation> relations = new ArrayList<>();
-//
+
 //    public static void main(String[] args) {
-//        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( "+ getName()");
+//        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( "+ getFirstName()" );//# Lecture()
 //        System.out.println(matcher.find());
 //    }
 
@@ -33,7 +33,7 @@ public class Main
     {
         //new Main();
 
-        final File file = new File( "src/main/resources/DiagramToCodeSVG.svg" );
+        final File file = new File( "src/main/resources/test0.svg" );
         final Document doc = Jsoup.parse( file, "UTF-8", "http://example.com/" );
         //Elements textTag = doc.getElementsByTag( "text" );
 

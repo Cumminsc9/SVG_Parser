@@ -41,15 +41,6 @@ public class ParseConstructor
                     constructorName = parseMethodName( classValue );
                     accessType = parseAccessType( classValue );
 
-//                    if( checkForMethodArguments( classValue ))
-//                    {
-//                        returnType = parseArgumentMethodReturnType( classValue );
-//                    }
-//                    else
-//                    {
-//                        returnType = parseReturnType(classValue);
-//                    }
-
                     if( accessType != null && constructorName != null )
                     {
                         if( newHashMap != null )
