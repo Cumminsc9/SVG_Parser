@@ -74,7 +74,7 @@
 			<desc>+ getFirstName() : String</desc>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st4"/>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st5"/>
-			<text x="8.5" y="592.27" class="st6">+ getFirstName() : String</text>		</g>
+			<text x="8.5" y="592.27" class="st6">+ getFirstName(  ) : String</text>		</g>
 		<g id="group9-20" transform="translate(87.874,-302.12)">
 			<title>Class.9</title>
 			<desc>Student</desc>
@@ -176,7 +176,7 @@
 			<desc>+ setFirstName() : String</desc>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st4"/>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st5"/>
-			<text x="8.5" y="592.27" class="st6">+ setFirstName() : String</text>		</g>
+			<text x="8.5" y="592.27" class="st6">+ setFirstName( firstName : String ) : void</text>		</g>
 		<g id="shape40-86" transform="translate(75.976,-414.058)">
 			<title>Member.40</title>
 			<desc>+ getLastName() : String</desc>
@@ -188,7 +188,7 @@
 			<desc>+ setLastName() : String</desc>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st4"/>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st5"/>
-			<text x="8.5" y="592.27" class="st6">+ setLastName() : String</text>		</g>
+			<text x="8.5" y="592.27" class="st6">+ setLastName( lastName : String, state : boolean ) : void</text>		</g>
 		<g id="shape42-94" transform="translate(75.976,-450.069)">
 			<title>Member.42</title>
 			<desc>+ Person(firstName : String, lastName : String)</desc>

@@ -54,4 +54,10 @@ public class ClazzToBuild
     {
         this.classMethods = classMethods;
     }
+
+    @Override
+    public String toString()
+    {
+        return className +"\t\t"+ classVariables.size() +"\t\t"+ classMethods.size();
+    }
 }

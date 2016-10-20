@@ -1,11 +1,9 @@
-import enums.Title;
-import objects.Method;
+import objects.ClazzToBuild;
 import objects.Relation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.File;
 import java.util.*;
 
@@ -56,29 +54,39 @@ public class Main
             relations.add( new Relation( location, value, type ) );
         }
 
-        for( ArrayList<ClassMembers> classMemberses : SortClasses.arrangeMethodAndVariables( relations ))
+        List<ClazzToBuild> clazzToBuilds = new ArrayList<>();
+
+
+        for( ArrayList<ClassMembers> classMemberses : SortClasses.arrangeMethodAndVariables( relations ) )
         {
             for( ClassMembers tempObject : classMemberses )
             {
                 CheckTitle.checkMember( tempObject );
-                System.out.println( tempObject );
             }
+
+            clazzToBuilds.add( new ClazzToBuild( classMemberses.get( 0 ).getClassName(),
+                    ParseVariable.parseVariable( classMemberses ), ParseMethod.parseMethod( classMemberses ) ) );
+        }
+
+        for( ClazzToBuild clazzToBuild : clazzToBuilds )
+        {
+            System.out.println( clazzToBuild.toString() );
         }
 
 
 
-//        for( ArrayList<ClassMembers> classMemberses : SortClasses.arrangeMethodAndVariables( relations ))
-//        {
-//            for( ClassMembers classMembers : classMemberses)
-//            {
-//                String className;
-//                Method method;
-//
-//                if( classMembers.getClassType().equals( Title.METHOD.getType() ) )
-//                {
-//                    ParseMethod.parseMethod( classMembers.getClassValue() );
-//                }
-//            }
-//        }
+        //        for( ArrayList<ClassMembers> classMemberses : SortClasses.arrangeMethodAndVariables( relations ))
+        //        {
+        //            for( ClassMembers classMembers : classMemberses)
+        //            {
+        //                String className;
+        //                Method method;
+        //
+        //                if( classMembers.getClassType().equals( Title.METHOD.getType() ) )
+        //                {
+        //                    ParseMethod.parseMethod( classMembers.getClassValue() );
+        //                }
+        //            }
+        //        }
     }
 }
