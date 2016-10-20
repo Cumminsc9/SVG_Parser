@@ -13,6 +13,14 @@ public class Method
     private HashMap<String, String> methodArguments;
 
 
+    public Method( String methodAccessType, String methodType, String methodName )
+    {
+        this.methodAccessType = methodAccessType;
+        this.methodType = methodType;
+        this.methodName = methodName;
+    }
+
+
     public Method( String methodAccessType, String methodType, String methodName, HashMap<String, String> methodArguments )
     {
         this.methodAccessType = methodAccessType;

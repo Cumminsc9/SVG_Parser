@@ -46,7 +46,14 @@ public class ParseMethod
 
             if( accessType != null && methodName != null && returnType != null )
             {
-                methodList.add( new Method( accessType, returnType, methodName, newHashMap ) );
+                if( newHashMap != null )
+                {
+                    methodList.add(new Method(accessType, returnType, methodName, newHashMap));
+                }
+                else
+                {
+                    methodList.add( new Method( accessType, returnType, methodName ) );
+                }
             }
         }
 
