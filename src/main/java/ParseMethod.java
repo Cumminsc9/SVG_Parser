@@ -40,7 +40,15 @@ public class ParseMethod
 
                     methodName = parseMethodName( classValue );
                     accessType = parseAccessType( classValue );
-                    returnType = parseReturnType( classValue );
+
+                    if( checkForMethodArguments( classValue ))
+                    {
+                        returnType = parseArgumentMethodReturnType( classValue );
+                    }
+                    else
+                    {
+                        returnType = parseReturnType(classValue);
+                    }
                 }
             }
 
@@ -95,10 +103,20 @@ public class ParseMethod
         return stringMethod.split( "[^\\w\\s]" )[1].trim();
     }
 
+    private static String parseArgumentMethodReturnType( final String stringMethod )
+    {
+        int index = stringMethod.lastIndexOf(":");
+        if(index != -1)
+        {
+            return stringMethod.substring(index).split(" ")[1];
+        }
+        return null;
+    }
 
 
     private static String parseReturnType( final String stringMethod )
     {
+
         return stringMethod.split( "[^\\w\\s]" )[4].trim();
     }
 
