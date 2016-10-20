@@ -1,11 +1,8 @@
-import com.sun.org.apache.regexp.internal.RE;
 import enums.AccessType;
 import enums.Title;
-import objects.ClazzToBuild;
 import objects.Method;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,10 +13,9 @@ import java.util.regex.Pattern;
  */
 public class ParseMethod
 {
-    private static List<Method> methodList = new ArrayList<>();
-
     public static List<Method> parseMethod( final ArrayList<ClassMembers> method )
     {
+        List<Method> methodList = new ArrayList<>();
         LinkedHashMap<String, String> newHashMap = null;
         String accessType = null;
         String methodName = null;
@@ -49,22 +45,21 @@ public class ParseMethod
                     {
                         returnType = parseReturnType(classValue);
                     }
-                }
-            }
 
-            if( accessType != null && methodName != null && returnType != null )
-            {
-                if( newHashMap != null )
-                {
-                    methodList.add(new Method(accessType, returnType, methodName, newHashMap));
-                }
-                else
-                {
-                    methodList.add( new Method( accessType, returnType, methodName ) );
+                    if( accessType != null && methodName != null && returnType != null )
+                    {
+                        if( newHashMap != null )
+                        {
+                            methodList.add(new Method(accessType, returnType, methodName, newHashMap));
+                        }
+                        else
+                        {
+                            methodList.add( new Method( accessType, returnType, methodName ) );
+                        }
+                    }
                 }
             }
         }
-
         return methodList;
     }
 
