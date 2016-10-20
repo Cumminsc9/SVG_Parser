@@ -3,6 +3,7 @@ package parsers;
 import enums.AccessType;
 import enums.Title;
 import objects.ClassMember;
+import objects.Constructor;
 import objects.Method;
 
 import java.util.ArrayList;
@@ -12,21 +13,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Tom on 19/10/2016.
+ * Created by anil on 20/10/2016.
  */
-public class ParseMethod
+public class ParseConstructor
 {
-    public static List<Method> parseMethod( final ArrayList<ClassMember> method )
+    public static List<Constructor> parseConstructor(final ArrayList<ClassMember> constructor )
     {
-        List<Method> methodList = new ArrayList<>();
+        List<Constructor> constructorList = new ArrayList<>();
         LinkedHashMap<String, String> newHashMap = null;
         String accessType = null;
-        String methodName = null;
+        String constructorName = null;
         String returnType = null;
 
-        for( ClassMember classMembers : method )
+        for( ClassMember classMembers : constructor )
         {
-            if( !classMembers.getClassType().equals( Title.CONSTRUCTOR.getType() ) )
+            if( !classMembers.getClassType().equals( Title.METHOD.getType() ) )
             {
                 if( !classMembers.getClassType().equals( Title.VARIABLE.getType() ) )
                 {
@@ -37,33 +38,33 @@ public class ParseMethod
                         newHashMap = parseArguments( classValue );
                     }
 
-                    methodName = parseMethodName( classValue );
+                    constructorName = parseMethodName( classValue );
                     accessType = parseAccessType( classValue );
 
-                    if( checkForMethodArguments( classValue ))
-                    {
-                        returnType = parseArgumentMethodReturnType( classValue );
-                    }
-                    else
-                    {
-                        returnType = parseReturnType(classValue);
-                    }
+//                    if( checkForMethodArguments( classValue ))
+//                    {
+//                        returnType = parseArgumentMethodReturnType( classValue );
+//                    }
+//                    else
+//                    {
+//                        returnType = parseReturnType(classValue);
+//                    }
 
-                    if( accessType != null && methodName != null && returnType != null )
+                    if( accessType != null && constructorName != null )
                     {
                         if( newHashMap != null )
                         {
-                            methodList.add(new Method(accessType, returnType, methodName, newHashMap));
+                            constructorList.add(new Constructor(accessType, constructorName, newHashMap));
                         }
                         else
                         {
-                            methodList.add( new Method( accessType, returnType, methodName ) );
+                            constructorList.add( new Constructor( accessType, constructorName ) );
                         }
                     }
                 }
             }
         }
-        return methodList;
+        return constructorList;
     }
 
 
@@ -101,22 +102,22 @@ public class ParseMethod
         return stringMethod.split( "[^\\w\\s]" )[1].trim();
     }
 
-    private static String parseArgumentMethodReturnType( final String stringMethod )
-    {
-        int index = stringMethod.lastIndexOf(":");
-        if(index != -1)
-        {
-            return stringMethod.substring(index).split(" ")[1];
-        }
-        return null;
-    }
+//    private static String parseArgumentMethodReturnType( final String stringMethod )
+//    {
+//        int index = stringMethod.lastIndexOf(":");
+//        if(index != -1)
+//        {
+//            return stringMethod.substring(index).split(" ")[1];
+//        }
+//        return null;
+//    }
 
-
-    private static String parseReturnType( final String stringMethod )
-    {
-
-        return stringMethod.split( "[^\\w\\s]" )[4].trim();
-    }
+//
+//    private static String parseReturnType( final String stringMethod )
+//    {
+//
+//        return stringMethod.split( "[^\\w\\s]" )[4].trim();
+//    }
 
 
 
@@ -146,7 +147,7 @@ public class ParseMethod
 
     private static boolean checkForMethodArguments( final String stringMethod )
     {
-        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( stringMethod );//\((\W\S.*?)\)
+        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( stringMethod );
         return matcher.find();
     }
 }

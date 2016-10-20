@@ -1,14 +1,18 @@
 import creation.BuildClass;
+import creation.ClassWriter;
 import helpers.OutputClasses;
 import objects.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
+import parsers.ParseConstructor;
 import parsers.ParseMethod;
 import parsers.ParseVariable;
 
 import java.io.File;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -18,6 +22,11 @@ public class Main
 {
     private static Map<String, String[]> elementMap = new HashMap<>();
     private static List<Relation> relations = new ArrayList<>();
+//
+//    public static void main(String[] args) {
+//        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( "+ getName()");
+//        System.out.println(matcher.find());
+//    }
 
 
     public static void main( String[] args ) throws Exception
@@ -58,15 +67,15 @@ public class Main
 
         List<ClazzToBuild> clazzToBuilds = new ArrayList<>();
 
-        for( ArrayList<ClassMember> classMemberses : SortClasses.arrangeMethodAndVariables( relations ) )
+        for( ArrayList<ClassMember> classMembers : SortClasses.arrangeMethodAndVariables( relations ) )
         {
-            for( ClassMember tempObject : classMemberses )
+            for( ClassMember tempObject : classMembers )
             {
                 CheckInput.checkMember( tempObject );
             }
 
-            clazzToBuilds.add( new ClazzToBuild( classMemberses.get( 0 ).getClassName(),
-                    ParseVariable.parseVariable( classMemberses ), ParseMethod.parseMethod( classMemberses ) ) );
+            clazzToBuilds.add( new ClazzToBuild( classMembers.get( 0 ).getClassName(),
+                    ParseVariable.parseVariable( classMembers ), ParseMethod.parseMethod( classMembers ), ParseConstructor.parseConstructor( classMembers )) );
         }
 
         // Always goes after the above loop.
@@ -74,7 +83,10 @@ public class Main
 
         for( ClazzToBuild clazzToBuild : clazzToBuilds )
         {
-            BuildClass.buildClass(clazzToBuild);
+//            BuildClass.buildClass(clazzToBuilds.get(2));
+//            break;
+            String clazz = BuildClass.buildClass(clazzToBuild);
+            ClassWriter.classWriter(clazz,clazzToBuild.getClassName());
             //break;
         }
     }

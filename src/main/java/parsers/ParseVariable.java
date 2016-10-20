@@ -1,6 +1,7 @@
 package parsers;
 
 import enums.AccessType;
+import enums.CollectionType;
 import enums.Title;
 import objects.Attribute;
 import objects.ClassMember;
@@ -8,6 +9,7 @@ import objects.Method;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -58,11 +60,25 @@ public class ParseVariable
 
     private static String parseReturnType( final String stringMethod )
     {
-        if(stringMethod.contains("["))//contains characters
-        {
-            return stringMethod.split(" ")[3];
-        }
-        return stringMethod.split( "[^\\w\\s]" )[2].trim();
+//        if(stringMethod.contains(CollectionType.ARRAY.getCollectionType()))//contains characters
+//        {
+//            return stringMethod.split(" ")[3];
+//        }
+
+//        else if(stringMethod.contains(CollectionType.MAP.getCollectionType()))
+//        {
+//            return stringMethod.split(" ")[3];
+//        }
+          if(stringMethod.contains(CollectionType.LIST.getCollectionType()) || stringMethod.contains(CollectionType.MAP.getCollectionType()))
+          {
+
+              return stringMethod.split(":")[1].trim();
+          }
+          else
+          {
+              return stringMethod.split(" ")[3];
+          }
+        //return stringMethod.split( "[^\\w\\s]" )[2].trim();
     }
 
     private static String parseAccessType( final String stringMethod )

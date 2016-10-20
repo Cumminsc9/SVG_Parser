@@ -150,7 +150,7 @@
 			<desc>- attendees : Student[]</desc>
 			<rect x="0" y="583.272" width="178.583" height="12.0036" class="st4"/>
 			<rect x="0" y="583.272" width="178.583" height="12.0036" class="st5"/>
-			<text x="8.5" y="592.27" class="st6">- attendees : Student[]</text>		</g>
+			<text x="8.5" y="592.27" class="st6">- attendees : List&#60;Map&#60;String, String&#62;&#62;</text>		</g>
 		<g id="group27-62" transform="translate(172.988,-366.035)">
 			<title>Association</title>
 			<g id="shape27-63">

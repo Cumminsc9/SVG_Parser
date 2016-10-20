@@ -10,13 +10,15 @@ public class ClazzToBuild
     private String className;
     private List<Attribute> classVariables;
     private List<Method> classMethods;
+    private List<Constructor> classConstructors;
 
 
-    public ClazzToBuild( String className, List<Attribute> classVariables, List<Method> classMethods )
+    public ClazzToBuild(String className, List<Attribute> classVariables, List<Method> classMethods, List<Constructor> classConstructors)
     {
         this.className = className;
         this.classVariables = classVariables;
         this.classMethods = classMethods;
+        this.classConstructors = classConstructors;
     }
 
 
@@ -55,6 +57,13 @@ public class ClazzToBuild
         this.classMethods = classMethods;
     }
 
+    public List<Constructor> getClassConstructors() {
+        return classConstructors;
+    }
+
+    public void setClassConstructors(List<Constructor> classConstructors) {
+        this.classConstructors = classConstructors;
+    }
 
     @Override
     public String toString()
