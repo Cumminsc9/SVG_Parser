@@ -37,9 +37,9 @@ public class Main extends Application
 
     private static Map<String, String[]> elementMap = new HashMap<>();
     private static List<Relation> relations = new ArrayList<>();
-//
+
 //    public static void main(String[] args) {
-//        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( "+ getName()");
+//        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( "+ getFirstName()" );//# Lecture()
 //        System.out.println(matcher.find());
 //    }
 
