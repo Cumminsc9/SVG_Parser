@@ -33,6 +33,13 @@ public class Method
     @Override
     public String toString()
     {
-        return methodAccessType + methodName + methodType + methodArguments;
+        if( methodArguments != null )
+        {
+            return methodAccessType + "\t" + methodType +"\t"+ methodName +"\t"+ methodArguments;
+        }
+        else
+        {
+            return methodAccessType + "\t" + methodType +"\t"+ methodName;
+        }
     }
 }
