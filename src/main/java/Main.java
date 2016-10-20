@@ -1,13 +1,11 @@
 import creation.BuildClass;
 import creation.ClassWriter;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -29,6 +27,7 @@ import java.util.List;
 
 /**
  * Created by c015406c on 18/10/2016.
+ * Last Edited 21/10/2016 by Giovanni
  */
 
 public class Main extends Application
@@ -68,7 +67,7 @@ public class Main extends Application
         grid.setVgap( 10 );
         grid.setPadding( new Insets( 25, 25, 25, 25 ) );
 
-        Scene scene = new Scene( grid, 360, 140 );
+        Scene scene = new Scene( grid, 400, 140 );
 
         stage.setResizable(false);
 
