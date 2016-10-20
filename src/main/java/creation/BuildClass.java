@@ -7,8 +7,6 @@ import objects.Method;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Tom on 20/10/2016.
