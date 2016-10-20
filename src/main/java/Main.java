@@ -23,15 +23,9 @@ import parsers.ParseConstructor;
 import parsers.ParseMethod;
 import parsers.ParseVariable;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /**
  * Created by c015406c on 18/10/2016.
@@ -41,7 +35,7 @@ public class Main extends Application
 {
     static Stage stage;
     static StackPane pane;
-    static String inputPath;
+    static String inputPath = "";
     static GridPane grid;
     static Label startLabel;
 
@@ -74,7 +68,7 @@ public class Main extends Application
         grid.setVgap( 10 );
         grid.setPadding( new Insets( 25, 25, 25, 25 ) );
 
-        Scene scene = new Scene( grid, 340, 140 );
+        Scene scene = new Scene( grid, 360, 140 );
 
         stage.setResizable(false);
 
@@ -105,6 +99,11 @@ public class Main extends Application
 
 
         FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter filterChooser = new FileChooser.ExtensionFilter("SVG files (*.svg)", "*.svg");
+        fileChooser.getExtensionFilters().add(filterChooser);
+
+
         Button browseBtn = new Button("Get the SVG File");
 
         browseBtn.setOnAction(e -> {
@@ -144,7 +143,7 @@ public class Main extends Application
         //Create starting label
         if( inputPath.isEmpty() )
         {
-            startLabel.setText( "Please enter path..." );
+            startLabel.setText( "Please select a .svg file" );
             pane.requestLayout();
         }
         else
