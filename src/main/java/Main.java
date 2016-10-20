@@ -69,6 +69,7 @@ public class Main
 
         for( ClazzToBuild clazzToBuild : clazzToBuilds )
         {
+            //BuildClass.buildClass(clazzToBuild);
             System.out.println( clazzToBuild.getClassName() );
 
             List<Method> classMethods = clazzToBuild.getClassMethods();
