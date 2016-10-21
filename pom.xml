@@ -4,10 +4,37 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>SVGParser</groupId>
-    <artifactId>co.uk.tcummins</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>co.uk.tcummins</groupId>
+    <artifactId>SVGParser</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <developers>
+        <developer>
+            <name>Tom Cummins</name>
+            <email>Cumminsc9@hotmail.co.uk</email>
+            <roles>
+                <role>Software Engineer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Anil Rahman</name>
+            <email>anil_0000@hotmail.co.uk</email>
+            <roles>
+                <role>Software Engineer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Giovanni Lenguito</name>
+            <email>giovanni16.gl@gmail.com</email>
+            <roles>
+                <role>Software Engineer</role>
+            </roles>
+        </developer>
+    </developers>
+
     <build>
+        <finalName>SVGtoJava</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -17,17 +44,53 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>co.uk.tcummins.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
+    <properties>
+        <jdk.version>1.8</jdk.version>
+        <junit.version>4.11</junit.version>
+        <log4j.version>1.2.17</log4j.version>
+        <jsoup.version>1.9.2</jsoup.version>
+        <javafxsvg.version>1.2.1</javafxsvg.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <!-- JUnit test library @ http://junit.org/junit4/-->
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- log4j logging framework @ http://logging.apache.org/log4j/2.x/-->
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
         <dependency>
             <!-- jsoup HTML parser library @ http://jsoup.org/ -->
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.9.2</version>
+            <version>${jsoup.version}</version>
         </dependency>
-
+        <dependency>
+            <!-- JavaFxSVG @ https://github.com/codecentric/javafxsvg -->
+            <groupId>de.codecentric.centerdevice</groupId>
+            <artifactId>javafxsvg</artifactId>
+            <version>${javafxsvg.version}</version>
+        </dependency>
     </dependencies>
-
 </project>
