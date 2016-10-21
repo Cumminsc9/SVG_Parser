@@ -1,10 +1,7 @@
 package co.uk.tcummins;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import co.uk.tcummins.enums.Title;
 import javafx.application.Application;
@@ -41,54 +38,21 @@ import co.uk.tcummins.parsers.ParseVariable;
 
 public class Main extends Application
 {
-    static Stage stage;
-    static StackPane pane;
-    static String inputPath = "";
-    static GridPane grid;
-    static Label startLabel;
+    private static Stage stage;
+    private static StackPane pane;
+    private static String inputPath = "";
+    private static GridPane grid;
+    private static Label startLabel;
 
     private static Map<String, String[]> elementMap = new HashMap<>();
     private static List<Relation> relations = new ArrayList<>();
+    private static List<ClazzToBuild> clazzToBuilds = new ArrayList<>();
     private static int cntIterations[];
+    private static int i = 0;
 
 
-    //    public static void main(String[] args) {
-    //        //final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( "+ getName()");
-    //        //System.out.println(matcher.find());
-    //        String stringMethod = "+ getFirstName( ) : String";
-    //        String newStringMethod = stringMethod.split(" ")[3].trim();
-    //        String str0 = "";
-    //        String str1 = "";
-    //        String str2 = "";
-    //        //String newStringMethod = stringMethod.split( "[^\\w\\s]" )[3].trim();
-    //        //System.out.println(newStringMethod);
-    //
-    //        String newStr = stringMethod.substring(stringMethod.indexOf("(")+1,stringMethod.indexOf(")"));
-    //        if(!newStr.matches(".*[a-z].*"))
-    //        {
-    //            //System.out.println(stringMethod + ": sfsd : " + newStr);//System.out.println(newStr);
-    //            str0 = stringMethod.substring(0, stringMethod.indexOf("(")+1);
-    //            str1 = newStr.trim();
-    //            str2 = stringMethod.substring(stringMethod.indexOf("(")+1, stringMethod.length()).trim();
-    //
-    //            String str4 = stringMethod.substring(0, stringMethod.indexOf("(")+1) + newStr.trim() + stringMethod.substring(stringMethod.indexOf("(")+1, stringMethod.length()).trim();
-    ////            System.out.println(str0);
-    ////            System.out.println(str1);
-    ////            System.out.println(str2);
-    //            System.out.println(str4);
-    //            //return true;
-    //        }
-    ////        else
-    ////        {
-    ////            System.out.println("no arguments");
-    ////            System.out.println(newStr.trim());
-    ////        }
-    //    }
-    //
     public static void main( String[] args ) throws Exception
     {
-        //new co.uk.tcummins.Main();
-
         launch( args );
     }
 
@@ -196,9 +160,9 @@ public class Main extends Application
 
             try
             {
-               // final File file = new File( "src/main/resources/PersonStudentLesson.svg" );//DEBUG PURPOSE
+                // final File file = new File( "src/main/resources/PersonStudentLesson.svg" );//DEBUG PURPOSE
 
-                final File file = new File(inputPath);
+                final File file = new File( inputPath );
 
                 final Document doc = Jsoup.parse( file, "UTF-8", "http://example.com/" );
                 //Elements textTag = doc.getElementsByTag( "text" );
@@ -223,7 +187,7 @@ public class Main extends Application
                 }
 
                 int currentIteration = 0;
-                cntIterations = new int[ elementMap.size() ];
+                cntIterations = new int[elementMap.size()];
 
                 for( Map.Entry<String, String[]> m : elementMap.entrySet() )
                 {
@@ -233,8 +197,6 @@ public class Main extends Application
                     //but for the other class switch the location to the second value (-279.99..)
                     relations.add( new Relation( values[0], values[1], values[2] ) );
                 }
-
-                List<ClazzToBuild> clazzToBuilds = new ArrayList<>();
 
                 for( ArrayList<ClassMember> classMembers : SortClasses.arrangeMethodAndVariables( relations ) )
                 {
@@ -253,41 +215,38 @@ public class Main extends Application
 
                 for( ClazzToBuild clazzToBuild : clazzToBuilds )
                 {
-                    //            BuildClass.buildClass(clazzToBuilds.get(2));
-                    //            break;
                     String clazz = BuildClass.buildClass( clazzToBuild );
                     ClassWriter.classWriter( clazz, clazzToBuild.getClassName() );
-                    //break;
                 }
+
+                if( clearCollections() )
+                {
+                    System.out.println( "Cleared..." );
+                }
+
                 startLabel.setText( "Complete" );
                 pane.requestLayout();
             }
             catch( Exception ex )
             {
-                startLabel.setText( "Invalid file path" );
+                startLabel.setText( ex.toString() );
                 pane.requestLayout();
                 ex.printStackTrace();
             }
         }
     }
 
-    static int i = 0;
-
-    private static String[] checkForClass(int currentIteration, Map.Entry<String, String[]> m)
+    private static String[] checkForClass( int currentIteration, Map.Entry<String, String[]> m )
     {
         final String firstClass;
         final String firstName;
         final String firstClassLoc;
         int firstClassFound = 0;
 
-
-
-
-
-        if (m.getValue()[1].contains(Title.CLAZZ.getType())) //currentType = Class
+        if( m.getValue()[1].contains( Title.CLAZZ.getType() ) ) //currentType = Class
         {
             firstClassFound = 1;
-            if(cntIterations != null)
+            if( cntIterations != null )
             {
                 cntIterations[i] = currentIteration;
             }
@@ -296,21 +255,15 @@ public class Main extends Application
             firstClassLoc = m.getKey();//firstLoc
             firstName = m.getValue()[0];//firstName
 
-            if (firstClassFound == 1 && firstClass != null && firstClassLoc != null) //after first iteration
+            if( firstClassFound == 1 && firstClass != null && firstClassLoc != null ) //after first iteration
             {
-                if (firstClass.contains(m.getValue()[1])) //firstClass = anotherClass
+                if( firstClass.contains( m.getValue()[1] ) ) //firstClass = anotherClass
                 {
-                    if (firstClassLoc.equals(m.getKey()))//if the location of the first class matches location of another
+                    if( firstClassLoc.equals( m.getKey() ) )//if the location of the first class matches location of another
                     {
-
-//                        for (int cntIteration : cntIterations)
-//                        {
-//                            System.out.println("cnt: " + cntIteration);
-//                        }
-
-                        System.out.println("firstName: " + firstName + "| matchingName: " + m.getValue()[0]);
-                        System.out.println("firstClass: " + firstClass + "| matchingClass: " + m.getValue()[1]);
-                        System.out.println("firstLoc :" + firstClassLoc + "| matchingLoc: " + m.getKey() + "\n");
+                        //System.out.println( "firstName: " + firstName + "| matchingName: " + m.getValue()[0] );
+                        //System.out.println( "firstClass: " + firstClass + "| matchingClass: " + m.getValue()[1] );
+                        //System.out.println( "firstLoc :" + firstClassLoc + "| matchingLoc: " + m.getKey() + "\n" );
                     }
                 }
             }
@@ -322,7 +275,30 @@ public class Main extends Application
 
         i++;
 
-        return new String[]{ location, value, type };
+        return new String[] { location, value, type };
     }
 
+
+    private static boolean clearCollections()
+    {
+        try
+        {
+            // Main.class
+            elementMap.clear();
+            relations.clear();
+            clazzToBuilds.clear();
+            Arrays.fill( cntIterations , 0 );
+            i = 0;
+
+            // SortClasses.class
+            SortClasses.classMap.clear();
+            SortClasses.hashMapList.clear();
+        }
+        catch( Exception e )
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

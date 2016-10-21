@@ -11,11 +11,11 @@ import java.util.*;
  */
 public class SortClasses
 {
-    private static List<Map<String, String>> hashMapList = new ArrayList<>();
-    private static List<ArrayList<ClassMember>> classMap = new ArrayList<>();
+    protected static List<Map<String, String>> hashMapList = new ArrayList<>();
+    protected static List<ArrayList<ClassMember>> classMap = new ArrayList<>();
 
 
-    public static List<ArrayList<ClassMember>> arrangeMethodAndVariables(List<Relation> relations )
+    public static List<ArrayList<ClassMember>> arrangeMethodAndVariables( List<Relation> relations )
     {
         for( Relation relation : relations )
         {
@@ -57,14 +57,6 @@ public class SortClasses
                 classMap.add( tempClass );
             }
         }
-
-        //        for( ArrayList<ClassMembers> tempObjects : classMap )
-        //        {
-        //            for( ClassMembers tempObject : tempObjects )
-        //            {
-        //                System.out.println( tempObject );
-        //            }
-        //        }
 
         return classMap;
     }
