@@ -31,6 +31,13 @@
                 <role>Software Engineer</role>
             </roles>
         </developer>
+        <developer>
+            <name>Shahzad Bari</name>
+            <email>shahzadb146@gmail.com</email>
+            <roles>
+                <role>Software Engineer</role>
+            </roles>
+        </developer>
     </developers>
 
     <build>
