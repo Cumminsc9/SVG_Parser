@@ -188,7 +188,7 @@
 			<desc>+ setLastName() : String</desc>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st4"/>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st5"/>
-			<text x="8.5" y="592.27" class="st6">+ setLastName( id : String, lastName : String, state : boolean ) : void</text>		</g>
+			<text x="8.5" y="592.27" class="st6">+ setLastName( lastName : String ) : void</text>		</g>
 		<g id="shape42-94" transform="translate(75.976,-450.069)">
 			<title>Member.42</title>
 			<desc>+ Person(firstName : String, lastName : String)</desc>

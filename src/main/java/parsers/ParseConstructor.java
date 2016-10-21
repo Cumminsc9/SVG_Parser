@@ -138,7 +138,15 @@ public class ParseConstructor
 
     private static boolean checkForMethodArguments( final String stringMethod )
     {
-        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( stringMethod );
-        return matcher.find();
+//        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( stringMethod );
+//        return matcher.find();
+
+        String newStr = stringMethod.substring(stringMethod.indexOf("(")+1,stringMethod.indexOf(")"));
+        if(newStr.matches(".*[a-z].*")) //has arguments has to have
+        {
+            //System.out.println(newStr);
+            return true;
+        }
+        return false; //no arguements even if random spaces or no space
     }
 }

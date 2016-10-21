@@ -5,7 +5,7 @@ public class Lesson
 
 	public String getType()
 	{
-
+		return type;
 	}
 
 }

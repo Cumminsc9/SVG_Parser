@@ -71,7 +71,6 @@ public class ParseVariable
 //        }
           if(stringMethod.contains(CollectionType.LIST.getCollectionType()) || stringMethod.contains(CollectionType.MAP.getCollectionType()))
           {
-
               return stringMethod.split(":")[1].trim();
           }
           else

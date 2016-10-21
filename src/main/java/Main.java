@@ -1,5 +1,9 @@
-import creation.BuildClass;
-import creation.ClassWriter;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,21 +17,23 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import objects.*;
+
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.*;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import creation.BuildClass;
+import creation.ClassWriter;
+import objects.ClassMember;
+import objects.ClazzToBuild;
+import objects.Relation;
 import parsers.ParseConstructor;
 import parsers.ParseMethod;
 import parsers.ParseVariable;
 
-import java.io.File;
-import java.util.*;
-import java.util.List;
-
 /**
- * Created by c015406c on 18/10/2016.
- * Last Edited 21/10/2016 by Giovanni
+ * Created by c015406c on 18/10/2016. Last Edited 21/10/2016 by Giovanni
  */
 
 public class Main extends Application
@@ -43,12 +49,42 @@ public class Main extends Application
 
 
     //    public static void main(String[] args) {
-    //        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( "+ getFirstName()" );//# Lecture()
-    //        System.out.println(matcher.find());
+    //        //final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( "+ getName()");
+    //        //System.out.println(matcher.find());
+    //        String stringMethod = "+ getFirstName( ) : String";
+    //        String newStringMethod = stringMethod.split(" ")[3].trim();
+    //        String str0 = "";
+    //        String str1 = "";
+    //        String str2 = "";
+    //        //String newStringMethod = stringMethod.split( "[^\\w\\s]" )[3].trim();
+    //        //System.out.println(newStringMethod);
+    //
+    //        String newStr = stringMethod.substring(stringMethod.indexOf("(")+1,stringMethod.indexOf(")"));
+    //        if(!newStr.matches(".*[a-z].*"))
+    //        {
+    //            //System.out.println(stringMethod + ": sfsd : " + newStr);//System.out.println(newStr);
+    //            str0 = stringMethod.substring(0, stringMethod.indexOf("(")+1);
+    //            str1 = newStr.trim();
+    //            str2 = stringMethod.substring(stringMethod.indexOf("(")+1, stringMethod.length()).trim();
+    //
+    //            String str4 = stringMethod.substring(0, stringMethod.indexOf("(")+1) + newStr.trim() + stringMethod.substring(stringMethod.indexOf("(")+1, stringMethod.length()).trim();
+    ////            System.out.println(str0);
+    ////            System.out.println(str1);
+    ////            System.out.println(str2);
+    //            System.out.println(str4);
+    //            //return true;
+    //        }
+    ////        else
+    ////        {
+    ////            System.out.println("no arguments");
+    ////            System.out.println(newStr.trim());
+    ////        }
     //    }
-
+    //
     public static void main( String[] args ) throws Exception
     {
+        //new Main();
+
         launch( args );
     }
 
@@ -69,14 +105,14 @@ public class Main extends Application
 
         Scene scene = new Scene( grid, 400, 140 );
 
-        stage.setResizable(false);
+        stage.setResizable( false );
 
         //create controls
         Text title = new Text( "UML Diagram .SVG to Java" );
-        title.setFont(Font.font ("Verdana", 20));
-        title.setFill(Color.BLUE);
-        Label madeBy = new Label("Built by Tom Cummins, Giovanni Lenguito, and Anil Rahman");
-        madeBy.setFont(Font.font ("Verdana", 7));
+        title.setFont( Font.font( "Verdana", 20 ) );
+        title.setFill( Color.BLUE );
+        Label madeBy = new Label( "Built by Tom Cummins, Giovanni Lenguito, and Anil Rahman" );
+        madeBy.setFont( Font.font( "Verdana", 7 ) );
 
         Button startBtn = new Button();
         startBtn.setText( "Start Conversion" );
@@ -99,18 +135,19 @@ public class Main extends Application
 
         FileChooser fileChooser = new FileChooser();
 
-        FileChooser.ExtensionFilter filterChooser = new FileChooser.ExtensionFilter("SVG files (*.svg)", "*.svg");
-        fileChooser.getExtensionFilters().add(filterChooser);
+        FileChooser.ExtensionFilter filterChooser = new FileChooser.ExtensionFilter( "SVG files (*.svg)", "*.svg" );
+        fileChooser.getExtensionFilters().add( filterChooser );
 
 
-        Button browseBtn = new Button("Get the SVG File");
+        Button browseBtn = new Button( "Get the SVG File" );
 
-        browseBtn.setOnAction(e -> {
-            File file = fileChooser.showOpenDialog(stage);
-            if (file != null) {
-                openSVG(file);
+        browseBtn.setOnAction( e -> {
+            File file = fileChooser.showOpenDialog( stage );
+            if( file != null )
+            {
+                openSVG( file );
             }
-        });
+        } );
 
         //add controls to grid
         grid.add( title, 0, 0, 2, 1 );
@@ -118,7 +155,7 @@ public class Main extends Application
         grid.add( startBtn, 1, 2 );
         grid.add( startLabel, 0, 1, 2, 1 );
 
-        grid.add(madeBy, 0, 3, 2, 1);
+        grid.add( madeBy, 0, 3, 2, 1 );
 
         //for debugging
         //grid.setGridLinesVisible(true);
@@ -131,11 +168,14 @@ public class Main extends Application
         primaryStage.show();
     }
 
-    private void openSVG(File file) {
+
+    private void openSVG( File file )
+    {
         inputPath = file.getPath();
-        startLabel.setText(file.getPath());
+        startLabel.setText( file.getPath() );
         pane.requestLayout();
     }
+
 
     private static void beginConversion() throws Exception
     {
@@ -150,9 +190,9 @@ public class Main extends Application
             startLabel.setText( "Starting" );
             pane.requestLayout();
 
-            final File file = new File( inputPath );//"src/main/resources/DiagramToCodeSVG.svg" );
             try
             {
+                final File file = new File( "src/main/resources/test0.svg" );//DiagramToCodeSVG
                 final Document doc = Jsoup.parse( file, "UTF-8", "http://example.com/" );
                 //Elements textTag = doc.getElementsByTag( "text" );
 

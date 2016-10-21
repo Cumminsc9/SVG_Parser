@@ -54,6 +54,7 @@ public class ParseMethod
                         if( newHashMap != null )
                         {
                             methodList.add(new Method(accessType, returnType, methodName, newHashMap));
+                            newHashMap = null;
                         }
                         else
                         {
@@ -114,8 +115,28 @@ public class ParseMethod
 
     private static String parseReturnType( final String stringMethod )
     {
+        String newStr = stringMethod.substring(stringMethod.indexOf("(")+1,stringMethod.indexOf(")"));
+        if(!newStr.matches(".*[a-z].*"))
+        {
+            //System.out.println(stringMethod + ": sfsd : " + newStr);//System.out.println(newStr);
+//            str0 = stringMethod.substring(0, stringMethod.indexOf("(") + 1);
+//            str1 = stringMethod.trim();
+//            str2 = stringMethod.substring(stringMethod.indexOf("(") + 1, stringMethod.length()).trim();
 
-        return stringMethod.split( "[^\\w\\s]" )[4].trim();
+            String str4 = stringMethod.substring(0, stringMethod.indexOf("(") + 1) + newStr.trim() + stringMethod.substring(stringMethod.indexOf("(") + 1, stringMethod.length()).trim();
+//            String str0 = stringMethod.substring(0, stringMethod.indexOf("(") + 1);
+//            String str1 = newStr.trim();
+//            String str2 = stringMethod.substring(stringMethod.indexOf("(") + 1, stringMethod.length()).trim();
+            //System.out.println(str0);
+            //System.out.println(str1);
+            //System.out.println(str2);
+            System.out.println(str4);
+            //System.out.println(str4.split(" ")[3].trim());
+            return str4.split(" ")[3].trim();
+        }
+//        String str4 = stringMethod.substring(0, stringMethod.indexOf("(") + 1) + stringMethod.trim() + stringMethod.substring(stringMethod.indexOf("(") + 1, stringMethod.length()).trim();
+//        System.out.println(str4.split(" ")[3].trim());
+        return stringMethod.split(" ")[3].trim();//stringMethod.split( "[^\\w\\s]" )[4].trim();
     }
 
 
@@ -146,7 +167,15 @@ public class ParseMethod
 
     private static boolean checkForMethodArguments( final String stringMethod )
     {
-        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( stringMethod );//\((\W\S.*?)\)
-        return matcher.find();
+//        final Matcher matcher = Pattern.compile( "\\((.*?)\\)" ).matcher( stringMethod );//\((\W\S.*?)\)
+//        return matcher.find();
+
+        String newStr = stringMethod.substring(stringMethod.indexOf("(")+1,stringMethod.indexOf(")"));
+        if(newStr.matches(".*[a-z].*")) //has arguments has to have
+        {
+            //System.out.println(newStr);
+            return true;
+        }
+        return false; //no arguements even if random spaces or no space
     }
 }
