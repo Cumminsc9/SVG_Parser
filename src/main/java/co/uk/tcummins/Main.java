@@ -196,7 +196,7 @@ public class Main extends Application
 
             try
             {
-               // final File file = new File( "src/main/resources/test0.svg" );//DEBUG PURPOSE
+               // final File file = new File( "src/main/resources/PersonStudentLesson.svg" );//DEBUG PURPOSE
 
                 final File file = new File(inputPath);
 
@@ -290,7 +290,6 @@ public class Main extends Application
             if(cntIterations != null)
             {
                 cntIterations[i] = currentIteration;
-
             }
 
             firstClass = m.getValue()[1];//firstClassType

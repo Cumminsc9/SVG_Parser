@@ -30,7 +30,7 @@ public class ClassWriter {
             if (!file.exists()) {
                 file.createNewFile();
             } else {
-                System.out.println("File already exists. Removing existing file.");
+                System.out.println( className + ".java already exists. Removing existing file.");
                 file.delete();
                 file.createNewFile();
             }
