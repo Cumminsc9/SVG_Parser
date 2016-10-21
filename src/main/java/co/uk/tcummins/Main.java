@@ -194,7 +194,10 @@ public class Main extends Application
 
             try
             {
-                final File file = new File( "src/main/resources/test0.svg" );//DiagramToCodeSVG
+               // final File file = new File( "src/main/resources/test0.svg" );//DEBUG PURPOSE
+
+                final File file = new File(inputPath);
+
                 final Document doc = Jsoup.parse( file, "UTF-8", "http://example.com/" );
                 //Elements textTag = doc.getElementsByTag( "text" );
 

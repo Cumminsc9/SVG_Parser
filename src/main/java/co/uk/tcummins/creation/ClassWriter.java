@@ -11,6 +11,7 @@ public class ClassWriter
 {
     public static boolean classWriter(String clazz, String className)
     {
+        //TODO: set with the users selected path from file chooser
         File file = new File( "src\\main\\resources\\createdClasses\\" + className + ".java" );
 
         // creates the file
