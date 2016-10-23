@@ -9,21 +9,39 @@ import java.io.IOException;
  */
 public class ClassWriter
 {
-    public static boolean classWriter(String clazz, String className)
+    private static String SYSTEM_OS_NAME = System.getProperty( "os.name" );
+    private static String WINDOWS = "Windows";
+    private static String OSX = "Mac OS X";
+
+
+    //TODO: set with the users selected path from file chooser
+    public static boolean classWriter( String clazz, String className )
     {
-        //TODO: set with the users selected path from file chooser
-        File file = new File( "src\\main\\resources\\createdClasses\\" + className + ".java" );
+        File file;
+
+        if( SYSTEM_OS_NAME.contains( OSX ) )
+        {
+            file = new File( "src/main/resources/createdClasses/" + className + ".java" );
+        }
+        else if( SYSTEM_OS_NAME.contains( WINDOWS ) )
+        {
+            file = new File( "src\\main\\resources\\createdClasses\\" + className + ".java" );
+        }
+        else
+        {
+            return false;
+        }
 
         // creates the file
         try
         {
-            if(!file.exists())
+            if( !file.exists() )
             {
                 file.createNewFile();
             }
             else
             {
-                System.out.println( "File already exists. Removing existing file." );
+                System.out.println( className + ".java already exists. Removing existing file." );
                 file.delete();
                 file.createNewFile();
             }
@@ -43,5 +61,4 @@ public class ClassWriter
 
         return true;
     }
-
 }
