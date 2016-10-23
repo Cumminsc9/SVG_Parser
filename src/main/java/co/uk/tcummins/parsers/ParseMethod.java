@@ -25,11 +25,11 @@ public class ParseMethod
 
         for( ClassMember classMembers : method )
         {
-            if( !classMembers.getClassType().equals( Title.CONSTRUCTOR.getType() ) )
+            if( !classMembers.getClassMemberType().equals( Title.CONSTRUCTOR.getType() ) )
             {
-                if( !classMembers.getClassType().equals( Title.VARIABLE.getType() ) )
+                if( !classMembers.getClassMemberType().equals( Title.VARIABLE.getType() ) )
                 {
-                    final String classValue = classMembers.getClassValue();
+                    final String classValue = classMembers.getClassMemberValue();
 
                     if( checkForArguments( classValue ) )
                     {

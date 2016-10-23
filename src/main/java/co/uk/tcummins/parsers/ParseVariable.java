@@ -24,12 +24,12 @@ public class ParseVariable
 
         for( ClassMember classMembers : method )
         {
-            if( !classMembers.getClassType().equals( Title.CONSTRUCTOR.getType() )
-                    && !classMembers.getClassType().equals( Title.METHOD.getType() ) )
+            if( !classMembers.getClassMemberType().equals( Title.CONSTRUCTOR.getType() )
+                    && !classMembers.getClassMemberType().equals( Title.METHOD.getType() ) )
             {
-                if( classMembers.getClassType().equals( Title.VARIABLE.getType() ) )
+                if( classMembers.getClassMemberType().equals( Title.VARIABLE.getType() ) )
                 {
-                    final String classValue = classMembers.getClassValue();
+                    final String classValue = classMembers.getClassMemberValue();
 
                     variableName = parseVariableName( classValue );
                     accessType = parseAccessType( classValue );

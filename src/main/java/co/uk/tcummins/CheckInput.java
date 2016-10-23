@@ -80,20 +80,20 @@ public class CheckInput
     public static void checkMember( final ClassMember members )
     {
         final String classMember = members.getClassName();
-        final String classMethod = members.getClassValue();
-        final String className = members.getClassValue().split( "\\(" )[0].split( " " )[1];
+        final String classMethod = members.getClassMemberValue();
+        final String className = members.getClassMemberValue().split( "\\(" )[0].split( " " )[1];
 
         if( classMethod.contains( "(" ) && classMethod.contains( ")" ) && classMember.startsWith( className ) )
         {
-            members.setClassType( Title.CONSTRUCTOR.getType() );
+            members.setClassMemberType( Title.CONSTRUCTOR.getType() );
         }
         else if( classMethod.contains( "(" ) && classMethod.contains( ")" ) )
         {
-            members.setClassType( Title.METHOD.getType() );
+            members.setClassMemberType( Title.METHOD.getType() );
         }
         else
         {
-            members.setClassType( Title.VARIABLE.getType() );
+            members.setClassMemberType( Title.VARIABLE.getType() );
         }
     }
 }

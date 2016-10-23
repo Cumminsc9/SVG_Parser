@@ -24,11 +24,11 @@ public class ParseConstructor
 
         for( ClassMember classMembers : constructor )
         {
-            if( !classMembers.getClassType().equals( Title.METHOD.getType() ) )
+            if( !classMembers.getClassMemberType().equals( Title.METHOD.getType() ) )
             {
-                if( !classMembers.getClassType().equals( Title.VARIABLE.getType() ) )
+                if( !classMembers.getClassMemberType().equals( Title.VARIABLE.getType() ) )
                 {
-                    final String classValue = classMembers.getClassValue();
+                    final String classValue = classMembers.getClassMemberValue();
 
                     if( checkForArguments( classValue ) )
                     {

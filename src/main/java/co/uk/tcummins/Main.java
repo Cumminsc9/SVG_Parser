@@ -206,7 +206,8 @@ public class Main extends Application
                     }
 
                     clazzToBuilds.add( new ClazzToBuild( classMembers.get( 0 ).getClassName(),
-                            ParseVariable.parseVariable( classMembers ), ParseMethod.parseMethod( classMembers ),
+                            ParseVariable.parseVariable( classMembers ),
+                            ParseMethod.parseMethod( classMembers ),
                             ParseConstructor.parseConstructor( classMembers ) ) );
                 }
 
@@ -287,7 +288,7 @@ public class Main extends Application
             elementMap.clear();
             relations.clear();
             clazzToBuilds.clear();
-            Arrays.fill( cntIterations , 0 );
+            Arrays.fill( cntIterations, 0 );
             i = 0;
 
             // SortClasses.class

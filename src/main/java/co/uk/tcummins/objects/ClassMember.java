@@ -5,15 +5,37 @@ package co.uk.tcummins.objects;
  */
 public class ClassMember
 {
-    private String className;
-    private String classValue;
     private String classType;
+    private String className;
+    private String classMemberValue;
+    private String classMemberType;
 
 
-    public ClassMember( String className, String classValue, String classType )
+    public ClassMember( String className, String classMemberValue, String classMemberType )
     {
         this.className = className;
-        this.classValue = classValue;
+        this.classMemberValue = classMemberValue;
+        this.classMemberType = classMemberType;
+    }
+
+
+    public ClassMember( String classType, String className, String classMemberType, String classMemberValue )
+    {
+        this.classMemberType = classMemberType;
+        this.classMemberValue = classMemberValue;
+        this.className = className;
+        this.classType = classType;
+    }
+
+
+    public String getClassType()
+    {
+        return classType;
+    }
+
+
+    public void setClassType( String classType )
+    {
         this.classType = classType;
     }
 
@@ -30,33 +52,33 @@ public class ClassMember
     }
 
 
-    public String getClassValue()
+    public String getClassMemberValue()
     {
-        return classValue;
+        return classMemberValue;
     }
 
 
-    public void setClassValue( String classValue )
+    public void setClassMemberValue( String classMemberValue )
     {
-        this.classValue = classValue;
+        this.classMemberValue = classMemberValue;
     }
 
 
-    public String getClassType()
+    public String getClassMemberType()
     {
-        return classType;
+        return classMemberType;
     }
 
 
-    public void setClassType( String classType )
+    public void setClassMemberType( String classMemberType )
     {
-        this.classType = classType;
+        this.classMemberType = classMemberType;
     }
 
 
     @Override
     public String toString()
     {
-        return className + "  " + classValue + "  " + classType;
+        return classType + "  " + className + "  " + classMemberValue + "  " + classMemberType;
     }
 }
