@@ -7,18 +7,32 @@ import java.util.List;
  */
 public class ClazzToBuild
 {
+    private String classType;
     private String className;
     private List<Attribute> classVariables;
     private List<Method> classMethods;
     private List<Constructor> classConstructors;
 
 
-    public ClazzToBuild(String className, List<Attribute> classVariables, List<Method> classMethods, List<Constructor> classConstructors)
+    public ClazzToBuild( String classType, String className, List<Attribute> classVariables, List<Method> classMethods, List<Constructor> classConstructors )
     {
+        this.classType = classType;
         this.className = className;
         this.classVariables = classVariables;
         this.classMethods = classMethods;
         this.classConstructors = classConstructors;
+    }
+
+
+    public String getClassType()
+    {
+        return classType;
+    }
+
+
+    public void setClassType( String classType )
+    {
+        this.classType = classType;
     }
 
 
@@ -57,17 +71,22 @@ public class ClazzToBuild
         this.classMethods = classMethods;
     }
 
-    public List<Constructor> getClassConstructors() {
+
+    public List<Constructor> getClassConstructors()
+    {
         return classConstructors;
     }
 
-    public void setClassConstructors(List<Constructor> classConstructors) {
+
+    public void setClassConstructors( List<Constructor> classConstructors )
+    {
         this.classConstructors = classConstructors;
     }
+
 
     @Override
     public String toString()
     {
-        return className + "\t\t" + classVariables + "\t\t" + classMethods;
+        return classType + "\t\t" + className + "\t\t" + classVariables + "\t\t" + classMethods;
     }
 }

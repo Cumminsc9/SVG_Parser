@@ -222,7 +222,9 @@ public class Main extends Application
                         checkMember( tempObject );
                     }
 
-                    clazzToBuilds.add( new ClazzToBuild( classMembers.get( 0 ).getClassName(),
+                    clazzToBuilds.add( new ClazzToBuild(
+                            classMembers.get( 0 ).getClassType(),
+                            classMembers.get( 0 ).getClassName(),
                             ParseVariable.parseVariable( classMembers ),
                             ParseMethod.parseMethod( classMembers ),
                             ParseConstructor.parseConstructor( classMembers ) ) );

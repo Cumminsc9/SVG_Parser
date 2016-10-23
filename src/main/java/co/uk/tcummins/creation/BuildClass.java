@@ -16,7 +16,7 @@ public class BuildClass
     public static String buildClass( final ClazzToBuild clazzToBuild )
     {
         StringBuilder sb = new StringBuilder();
-        sb.append( "public class " + clazzToBuild.getClassName() );
+        sb.append( "public " + clazzToBuild.getClassType() + " " + clazzToBuild.getClassName() );
         sb.append( "\n{\n" );
 
         //variables
