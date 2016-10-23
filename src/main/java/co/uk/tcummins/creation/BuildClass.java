@@ -3,6 +3,7 @@ package co.uk.tcummins.creation;
 import java.util.Iterator;
 import java.util.Map;
 
+import co.uk.tcummins.enums.Title;
 import co.uk.tcummins.objects.Attribute;
 import co.uk.tcummins.objects.ClazzToBuild;
 import co.uk.tcummins.objects.Constructor;
@@ -16,7 +17,7 @@ public class BuildClass
     public static String buildClass( final ClazzToBuild clazzToBuild )
     {
         StringBuilder sb = new StringBuilder();
-        sb.append( "public " + clazzToBuild.getClassType() + " " + clazzToBuild.getClassName() );
+        sb.append( "public " + clazzToBuild.getClassType().toLowerCase() + " " + clazzToBuild.getClassName() );
         sb.append( "\n{\n" );
 
         //variables
@@ -34,6 +35,9 @@ public class BuildClass
 
             if( constructor.getConstructorArguments() == null || constructor.getConstructorArguments().size() < 1 )
             {
+                {
+
+                }
                 sb.append( ")" );
                 sb.append( "\n\t{\n" );
             }
@@ -83,6 +87,11 @@ public class BuildClass
 
             if( method.getMethodArguments() == null || method.getMethodArguments().size() < 1 )
             {
+                if(clazzToBuild.getClassType().toLowerCase().equals(Title.INTERFACE.getType().toLowerCase()))
+                {
+                    //if interface do this
+                    sb.append(");");
+                }
                 sb.append( ")" );
                 sb.append( "\n\t{\n" );
 
@@ -111,22 +120,37 @@ public class BuildClass
                     }
                     else
                     {
-                        sb.append( " )" );
-                        sb.append( "\n\t{\n" );
-
-                        for( Attribute attribute : clazzToBuild.getClassVariables() )
+                        if(clazzToBuild.getClassType().toLowerCase().equals(Title.INTERFACE.getType().toLowerCase()))
                         {
-                            if( key.toLowerCase().contains( attribute.getAttributeName().toLowerCase() ) )
-                            {
-                                sb.append( "\t\tthis." + attribute.getAttributeName() + " = " + key + ";\n" );
+                            //if interface do this
+                            sb.append(");");
+                        }
+                        else
+                        {
+                            sb.append(" )");
+                            sb.append("\n\t{\n");
+
+                            for (Attribute attribute : clazzToBuild.getClassVariables()) {
+                                if (key.toLowerCase().contains(attribute.getAttributeName().toLowerCase())) {
+                                    sb.append("\t\tthis." + attribute.getAttributeName() + " = " + key + ";\n");
+                                }
                             }
                         }
                     }
                 }
             }
-            sb.append( "\n\t}" );
-            if( clazzToBuild.getClassMethods().size() > 0 )
-                sb.append( "\n\n" );
+            if(clazzToBuild.getClassType().toLowerCase().equals(Title.INTERFACE.getType().toLowerCase()))
+            {
+                //if interface do this
+                sb.append("\n");
+
+            }
+            else
+            {
+                sb.append("\n\t}");
+                if (clazzToBuild.getClassMethods().size() > 0)
+                    sb.append("\n\n");
+            }
         }
 
 
