@@ -59,7 +59,7 @@ public class Relation
     {
         if( type != null )
         {
-            return "Location: " + location + "\tType: " + type + "\t\tValue: " + value  ;
+            return "Location: " + location + "\tType: " + type + "\t\tValue: " + value;
         }
         else
         {

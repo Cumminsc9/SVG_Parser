@@ -32,6 +32,9 @@ import co.uk.tcummins.parsers.ParseConstructor;
 import co.uk.tcummins.parsers.ParseMethod;
 import co.uk.tcummins.parsers.ParseVariable;
 
+import static co.uk.tcummins.CheckInput.checkMember;
+import static co.uk.tcummins.CheckInput.checkTitle;
+
 /**
  * Created by c015406c on 18/10/2016. Last Edited 21/10/2016 by Giovanni
  */
@@ -180,8 +183,19 @@ public class Main extends Application
                         if( enumTitle != null )
                         {
                             String theText = textElements.get( 0 ).text();
-                            String[] stringArray = { theText, enumTitle };
-                            elementMap.put( locationAttribute, stringArray );
+                            if( textElements.size() >= 2 )
+                            {
+                                theText = textElements.get( 1 ).text();
+                            }
+
+                            if( !theText.equals("<<Enumeration>>")  )
+                            {
+                                if( !theText.equals("<<Interface>>") )
+                                {
+                                    String[] stringArray = { theText, enumTitle,  };
+                                    elementMap.put( locationAttribute, stringArray );
+                                }
+                            }
                         }
                     }
                 }
@@ -198,11 +212,13 @@ public class Main extends Application
                     relations.add( new Relation( values[0], values[1], values[2] ) );
                 }
 
-                for( ArrayList<ClassMember> classMembers : SortClasses.arrangeMethodAndVariables( relations ) )
+                final List<ArrayList<ClassMember>> sorted = SortClasses.arrangeMethodAndVariables( relations );
+
+                for( ArrayList<ClassMember> classMembers : sorted )
                 {
                     for( ClassMember tempObject : classMembers )
                     {
-                        CheckInput.checkMember( tempObject );
+                        checkMember( tempObject );
                     }
 
                     clazzToBuilds.add( new ClazzToBuild( classMembers.get( 0 ).getClassName(),

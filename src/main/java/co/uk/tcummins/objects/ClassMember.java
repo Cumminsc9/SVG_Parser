@@ -5,10 +5,9 @@ package co.uk.tcummins.objects;
  */
 public class ClassMember
 {
-    private String classType;
     private String className;
-    private String classMemberValue;
     private String classMemberType;
+    private String classMemberValue;
 
 
     public ClassMember( String className, String classMemberValue, String classMemberType )
@@ -16,27 +15,6 @@ public class ClassMember
         this.className = className;
         this.classMemberValue = classMemberValue;
         this.classMemberType = classMemberType;
-    }
-
-
-    public ClassMember( String classType, String className, String classMemberType, String classMemberValue )
-    {
-        this.classMemberType = classMemberType;
-        this.classMemberValue = classMemberValue;
-        this.className = className;
-        this.classType = classType;
-    }
-
-
-    public String getClassType()
-    {
-        return classType;
-    }
-
-
-    public void setClassType( String classType )
-    {
-        this.classType = classType;
     }
 
 
@@ -79,6 +57,6 @@ public class ClassMember
     @Override
     public String toString()
     {
-        return classType + "  " + className + "  " + classMemberValue + "  " + classMemberType;
+        return className + "  " + classMemberValue + "  " + classMemberType;
     }
 }

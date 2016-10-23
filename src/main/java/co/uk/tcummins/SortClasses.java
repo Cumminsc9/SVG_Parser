@@ -19,7 +19,10 @@ public class SortClasses
     {
         for( Relation relation : relations )
         {
-            if( relation.getType().equals( Title.CLAZZ.getType() ) )
+            final String classType = relation.getType();
+            
+            if( classType.equals( Title.CLAZZ.getType() ) || classType.equals( Title.INTERFACE.getType() )
+                    || classType.equals( Title.ENUM.getType() ) )
             {
                 Map<String, String> tempClass = new HashMap<>();
                 tempClass.put( relation.getLocation(), relation.getValue() );
@@ -35,21 +38,29 @@ public class SortClasses
 
                 for( Relation relation : relations )
                 {
-                    if( !relation.getType().equals( Title.CLAZZ.getType() ) )
+                    final String classType = relation.getType();
+                    
+                    if( !classType.equals( Title.CLAZZ.getType() ) )
                     {
-                        double memberLocation = Double.parseDouble( relation.getLocation() );
-                        double classLocation = Double.parseDouble( m.getKey() );
-                        double f = classLocation - memberLocation;
-
-                        if( f <= 0 || f <= -4 )
+                        if( !classType.equals( Title.INTERFACE.getType() ) )
                         {
-                            if( f <= -10 )
+                            if( !classType.equals( Title.ENUM.getType() ) )
                             {
-                                continue;
-                            }
-                            else
-                            {
-                                tempClass.add( new ClassMember( m.getValue(), relation.getValue(), relation.getType() ) );
+                                double memberLocation = Double.parseDouble( relation.getLocation() );
+                                double classLocation = Double.parseDouble( m.getKey() );
+                                double f = classLocation - memberLocation;
+
+                                if( f <= 0 || f <= -4 )
+                                {
+                                    if( f <= -10 )
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tempClass.add( new ClassMember( m.getValue(), relation.getValue(), relation.getType() ) );
+                                    }
+                                }
                             }
                         }
                     }

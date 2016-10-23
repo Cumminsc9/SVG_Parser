@@ -48,7 +48,15 @@ public class ParseVariable
 
     private static String parseVariableName( final String stringMethod )
     {
-        return stringMethod.split( "[^\\w\\s]" )[1].trim();
+        final String[] foo = stringMethod.split( "[^\\w\\s]" );
+        if( foo.length >= 2 )
+        {
+            return foo[1].trim();
+        }
+        else
+        {
+            return foo[0].trim();
+        }
     }
 
 
