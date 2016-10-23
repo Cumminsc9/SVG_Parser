@@ -19,7 +19,7 @@ public class ClassMember
     }
 
 
-    public ClassMember( String classType, String className, String classMemberValue, String classMemberType )
+    public ClassMember(String classType, String className, String classMemberValue, String classMemberType )
     {
         this.classType = classType;
         this.className = className;

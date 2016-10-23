@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class SortClasses
 {
-    protected static List<Map<String, String>> hashMapList = new ArrayList<>();
+    protected static List<Map<String, String[]>> hashMapList = new ArrayList<>();
     protected static List<ArrayList<ClassMember>> classMap = new ArrayList<>();
 
 
@@ -20,25 +20,30 @@ public class SortClasses
         for( Relation relation : relations )
         {
             final String classType = relation.getType();
+            String[] classDetails = new String[2];
+            classDetails[0] = relation.getValue();
+            classDetails[1] = relation.getType();
             
             if( classType.equals( Title.CLAZZ.getType() ) || classType.equals( Title.INTERFACE.getType() )
                     || classType.equals( Title.ENUM.getType() ) )
             {
-                Map<String, String> tempClass = new HashMap<>();
-                tempClass.put( relation.getLocation(), relation.getValue() );
+                Map<String, String[]> tempClass = new HashMap<>();
+                //tempClass.put( relation.getLocation(), relation.getValue() ); //location(260.00) //IMessenger (ClassName)
+                tempClass.put(relation.getLocation(), new String[] {classDetails[0], classDetails[1]}); //value, type
                 hashMapList.add( tempClass );
             }
         }
 
-        for( Map<String, String> hashMap : hashMapList )
+        for( Map<String, String[]> hashMap : hashMapList )
         {
-            for( Map.Entry<String, String> m : hashMap.entrySet() )
+            for( Map.Entry<String, String[]> m : hashMap.entrySet() ) //current element
             {
                 ArrayList<ClassMember> tempClass = new ArrayList<>();
 
                 for( Relation relation : relations )
                 {
                     final String classType = relation.getType();
+                    final String typeObject = m.getValue()[1];
                     
                     if( !classType.equals( Title.CLAZZ.getType() ) )
                     {
@@ -58,7 +63,8 @@ public class SortClasses
                                     }
                                     else
                                     {
-                                        tempClass.add( new ClassMember( m.getValue(), relation.getValue(), relation.getType() ) );
+                                        //tempClass.add( new ClassMember( m.getValue(), relation.getValue(), relation.getType() ) );
+                                        tempClass.add( new ClassMember( m.getValue()[1], m.getValue()[0], relation.getValue(), relation.getType() ) );
                                     }
                                 }
                             }
