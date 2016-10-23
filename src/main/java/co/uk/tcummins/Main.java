@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.*;
 
 import co.uk.tcummins.enums.Title;
+import co.uk.tcummins.helpers.OutputClasses;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

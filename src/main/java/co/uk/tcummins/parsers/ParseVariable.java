@@ -31,9 +31,18 @@ public class ParseVariable
                 {
                     final String classValue = classMembers.getClassMemberValue();
 
-                    variableName = parseVariableName( classValue );
-                    accessType = parseAccessType( classValue );
-                    returnType = parseReturnType( classValue );
+                    if(!classValue.contains(" "))
+                    {
+                        variableName = classValue;
+                        accessType = "";
+                        returnType = "";
+                    }
+                    else
+                    {
+                        variableName = parseVariableName(classValue);
+                        accessType = parseAccessType(classValue);
+                        returnType = parseReturnType(classValue);
+                    }
 
                     if( accessType != null && variableName != null && returnType != null )
                     {
@@ -67,6 +76,11 @@ public class ParseVariable
         {
             return stringMethod.split( ":" )[1].trim();
         }
+//        else if (!stringMethod.contains(" ")) //no spaces meaning just one long word, this would mean only going to be variable from enum
+//        {
+//            System.out.println("IT WAS AN ENUM: " + stringMethod );
+//            return "";
+//        }
         else
         {
             return stringMethod.split( " " )[3];
