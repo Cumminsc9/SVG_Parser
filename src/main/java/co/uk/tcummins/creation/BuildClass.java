@@ -17,14 +17,43 @@ public class BuildClass
     public static String buildClass( final ClazzToBuild clazzToBuild )
     {
         StringBuilder sb = new StringBuilder();
-        sb.append( "public " + clazzToBuild.getClassType().toLowerCase() + " " + clazzToBuild.getClassName() );
+                if(clazzToBuild.getClassType().toLowerCase().equals(Title.ENUM.getType().toLowerCase()))
+                {
+                    //if enum then do this
+                    sb.append( "public " + clazzToBuild.getClassType().toLowerCase().substring(0,4) + " " + clazzToBuild.getClassName() );
+                }
+                else
+                {
+                    //otherwise continue as normal
+                    sb.append( "public " + clazzToBuild.getClassType().toLowerCase() + " " + clazzToBuild.getClassName() );
+                }
         sb.append( "\n{\n" );
 
+        int i = 0;
         //variables
         for( Attribute attribute : clazzToBuild.getClassVariables() )
         {
-            sb.append( "\t" + attribute.getAttributeAccessType() + " " + attribute.getAttributeType() + " "
-                    + attribute.getAttributeName() + ";\n" );
+
+            if(clazzToBuild.getClassType().toLowerCase().equals(Title.ENUM.getType().toLowerCase()))
+            {
+                //if enum do this
+                //sb.append( "\t" + attribute.getAttributeName() );
+                if (i+1 < clazzToBuild.getClassVariables().size())
+                {
+                    sb.append( "\t" + attribute.getAttributeName() + ",\n" );
+                }
+                else
+                {
+                    sb.append( "\t" + attribute.getAttributeName() + ";" );
+                }
+
+            }
+            else
+            {
+                sb.append("\t" + attribute.getAttributeAccessType() + " " + attribute.getAttributeType() + " "
+                        + attribute.getAttributeName() + ";\n");
+            }
+            i++;
         }
 
         sb.append( "\n" );
