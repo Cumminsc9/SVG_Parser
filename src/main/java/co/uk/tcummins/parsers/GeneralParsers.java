@@ -3,6 +3,7 @@ package co.uk.tcummins.parsers;
 import co.uk.tcummins.enums.AccessType;
 
 import java.util.LinkedHashMap;
+import java.util.logging.Logger;
 
 /**
  * Created by Tom on 21/10/2016.

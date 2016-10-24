@@ -3,6 +3,7 @@ package co.uk.tcummins.helpers;
 import co.uk.tcummins.objects.Attribute;
 import co.uk.tcummins.objects.ClazzToBuild;
 import co.uk.tcummins.objects.Method;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
  */
 public class OutputClasses
 {
+    private static final Logger logger = Logger.getLogger( OutputClasses.class.getName() );
+
     /**
      * This class simply outputs each individual class,
      * with its related methods and variables.
@@ -24,23 +27,23 @@ public class OutputClasses
     {
         for( ClazzToBuild clazzToBuild : clazzToBuilds )
         {
-            System.out.println( "Class: " + clazzToBuild.getClassName() );
+            logger.debug( "Class: " + clazzToBuild.getClassName() );
 
             List<Method> classMethods = clazzToBuild.getClassMethods();
-            System.out.println( "\tMethods:" );
+            logger.debug( "\tMethods:" );
             for( Method classMethod : classMethods )
             {
-                System.out.println( "\t\t" + classMethod );
+                logger.debug( "\t\t" + classMethod );
             }
 
             List<Attribute> classVariables = clazzToBuild.getClassVariables();
-            System.out.println( "\tVariables:" );
+            logger.debug( "\tVariables:" );
             for( Attribute classVariable : classVariables )
             {
-                System.out.println( "\t\t" + classVariable );
+                logger.debug( "\t\t" + classVariable );
             }
 
-            System.out.print( "\n" );
+            logger.debug( "\n" );
         }
     }
 }
