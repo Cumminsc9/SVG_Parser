@@ -4,7 +4,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
 		width="11.6929in" height="8.26772in" viewBox="0 0 841.89 595.276" xml:space="preserve" color-interpolation-filters="sRGB"
 		class="st17">
-	<style type="text/css">
+	<style classMemberType="text/css">
 	<![CDATA[
 		.st1 {fill:#f2f2f2;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
 		.st2 {fill:#ffffff;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
@@ -185,10 +185,10 @@
 			<text x="8.5" y="592.27" class="st6">+ setLastName( lastName : String ) : void</text>		</g>
 		<g id="shape33-78" transform="translate(328.819,-317.479)">
 			<title>Member.33</title>
-			<desc>- type : String</desc>
+			<desc>- classMemberType : String</desc>
 			<rect x="0" y="583.272" width="178.583" height="12.0036" class="st4"/>
 			<rect x="0" y="583.272" width="178.583" height="12.0036" class="st5"/>
-			<text x="8.5" y="592.27" class="st6">- type : String</text>		</g>
+			<text x="8.5" y="592.27" class="st6">- classMemberType : String</text>		</g>
 		<g id="shape34-82" transform="translate(62.3622,-154.524)">
 			<title>Member.34</title>
 			<desc>+ setStudentID( studentID : int ) : void</desc>

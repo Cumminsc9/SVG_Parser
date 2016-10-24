@@ -10,7 +10,7 @@ public class CheckInput
 {
     public static String checkTitle( final String title )
     {
-        final String parsedTitle = title.replaceAll( "[^a-zA-Z]", "" );
+        final String parsedTitle = title.replaceAll( "[^a-zA-Z] ", "" );
 
         if( parsedTitle.contains( Title.CLAZZ.getType() ) )
         {
@@ -20,7 +20,7 @@ public class CheckInput
         {
             return Title.ENUM.getType();
         }
-        if( parsedTitle.equals( Title.INTERFACE.getType() ) )
+        if( parsedTitle.contains( Title.INTERFACE.getType() ) && !parsedTitle.contains( "Realization" ) )
         {
             return Title.INTERFACE.getType();
         }
@@ -81,7 +81,16 @@ public class CheckInput
     {
         final String classMember = members.getClassName();
         final String classMethod = members.getClassMemberValue();
-        final String className = members.getClassMemberValue().split( "\\(" )[0].split( " " )[1];
+        final String[] strArray = members.getClassMemberValue().split( "\\(" )[0].split( " " );
+        String className;
+        if( strArray.length >= 2 )
+        {
+            className = strArray[1];
+        }
+        else
+        {
+            className = strArray[0];
+        }
 
         if( classMethod.contains( "(" ) && classMethod.contains( ")" ) && classMember.startsWith( className ) )
         {

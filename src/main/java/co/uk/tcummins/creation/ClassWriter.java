@@ -1,5 +1,7 @@
 package co.uk.tcummins.creation;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.io.IOException;
  */
 public class ClassWriter
 {
+    private static final Logger logger = Logger.getLogger( ClassWriter.class.getName() );
     private static String SYSTEM_OS_NAME = System.getProperty( "os.name" );
     private static String WINDOWS = "Windows";
     private static String OSX = "Mac OS X";
@@ -22,17 +25,19 @@ public class ClassWriter
         if( SYSTEM_OS_NAME.contains( OSX ) )
         {
             file = new File( "src/main/resources/createdClasses/" + className + ".java" );
+            logger.info( "Using OSX system..." );
         }
         else if( SYSTEM_OS_NAME.contains( WINDOWS ) )
         {
             file = new File( "src\\main\\resources\\createdClasses\\" + className + ".java" );
+            logger.info( "Using Windows system..." );
         }
         else
         {
+            logger.error( "Unable to create the created classes" );
             return false;
         }
 
-        // creates the file
         try
         {
             if( !file.exists() )
@@ -41,7 +46,7 @@ public class ClassWriter
             }
             else
             {
-                System.out.println( className + ".java already exists. Removing existing file." );
+                logger.info( className + ".java already exists. Removing existing file." );
                 file.delete();
                 file.createNewFile();
             }
@@ -56,7 +61,7 @@ public class ClassWriter
         }
         catch( IOException e )
         {
-            e.printStackTrace();
+            logger.error( "IOException error. See following Stack Trace: " + e.toString() );
         }
 
         return true;

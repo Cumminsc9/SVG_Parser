@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.*;
 
 import co.uk.tcummins.enums.Title;
+import co.uk.tcummins.helpers.OutputClasses;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -32,16 +34,18 @@ import co.uk.tcummins.parsers.ParseConstructor;
 import co.uk.tcummins.parsers.ParseMethod;
 import co.uk.tcummins.parsers.ParseVariable;
 
+import static co.uk.tcummins.CheckInput.checkMember;
+
 /**
  * Created by c015406c on 18/10/2016. Last Edited 21/10/2016 by Giovanni
  */
-
 public class Main extends Application
 {
+    private static final Logger logger = Logger.getLogger( Main.class.getName() );
+
     private static Stage stage;
     private static StackPane pane;
     private static String inputPath = "";
-    private static GridPane grid;
     private static Label startLabel;
 
     private static Map<String, String[]> elementMap = new HashMap<>();
@@ -50,12 +54,11 @@ public class Main extends Application
     private static int cntIterations[];
     private static int i = 0;
 
-
     public static void main( String[] args ) throws Exception
     {
+        logger.info( "Application started... Loading GUI" );
         launch( args );
     }
-
 
     @Override
     public void start( Stage primaryStage ) throws Exception
@@ -65,13 +68,13 @@ public class Main extends Application
         stage = primaryStage;
 
         //setup grid
-        grid = new GridPane();
+        GridPane grid = new GridPane();
         grid.setAlignment( (Pos.CENTER) );
         grid.setHgap( 10 );
         grid.setVgap( 10 );
         grid.setPadding( new Insets( 25, 25, 25, 25 ) );
 
-        Scene scene = new Scene( grid, 400, 140 );
+        Scene scene = new Scene(grid, 400, 140 );
 
         stage.setResizable( false );
 
@@ -180,8 +183,19 @@ public class Main extends Application
                         if( enumTitle != null )
                         {
                             String theText = textElements.get( 0 ).text();
-                            String[] stringArray = { theText, enumTitle };
-                            elementMap.put( locationAttribute, stringArray );
+                            if( textElements.size() >= 2 )
+                            {
+                                theText = textElements.get( 1 ).text();
+                            }
+
+                            if( !theText.equals("<<Enumeration>>")  )
+                            {
+                                if( !theText.equals("<<Interface>>") )
+                                {
+                                    String[] stringArray = { theText, enumTitle,  };
+                                    elementMap.put( locationAttribute, stringArray );
+                                }
+                            }
                         }
                     }
                 }
@@ -198,21 +212,25 @@ public class Main extends Application
                     relations.add( new Relation( values[0], values[1], values[2] ) );
                 }
 
-                for( ArrayList<ClassMember> classMembers : SortClasses.arrangeMethodAndVariables( relations ) )
+                final List<ArrayList<ClassMember>> sorted = SortClasses.arrangeMethodAndVariables( relations );
+
+                for( ArrayList<ClassMember> classMembers : sorted )
                 {
                     for( ClassMember tempObject : classMembers )
                     {
-                        CheckInput.checkMember( tempObject );
+                        checkMember( tempObject );
                     }
 
-                    clazzToBuilds.add( new ClazzToBuild( classMembers.get( 0 ).getClassName(),
+                    clazzToBuilds.add( new ClazzToBuild(
+                            classMembers.get( 0 ).getClassType(),
+                            classMembers.get( 0 ).getClassName(),
                             ParseVariable.parseVariable( classMembers ),
                             ParseMethod.parseMethod( classMembers ),
                             ParseConstructor.parseConstructor( classMembers ) ) );
                 }
 
                 // Always goes after the above loop.
-                //OutputClasses.outputClasses( clazzToBuilds );
+                OutputClasses.outputClasses( clazzToBuilds );
 
                 for( ClazzToBuild clazzToBuild : clazzToBuilds )
                 {
@@ -222,7 +240,7 @@ public class Main extends Application
 
                 if( clearCollections() )
                 {
-                    System.out.println( "Cleared..." );
+                    logger.info( "Collections cleared..." );
                 }
 
                 startLabel.setText( "Complete" );
@@ -232,7 +250,7 @@ public class Main extends Application
             {
                 startLabel.setText( ex.toString() );
                 pane.requestLayout();
-                ex.printStackTrace();
+                logger.error( "Error: " + ex.toString() );
             }
         }
     }
@@ -297,6 +315,7 @@ public class Main extends Application
         }
         catch( Exception e )
         {
+            logger.error( "Unable to clear collections... " + e.toString() );
             return false;
         }
 

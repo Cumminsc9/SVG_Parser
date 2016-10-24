@@ -7,8 +7,8 @@ public class ClassMember
 {
     private String classType;
     private String className;
-    private String classMemberValue;
     private String classMemberType;
+    private String classMemberValue;
 
 
     public ClassMember( String className, String classMemberValue, String classMemberType )
@@ -19,12 +19,12 @@ public class ClassMember
     }
 
 
-    public ClassMember( String classType, String className, String classMemberType, String classMemberValue )
+    public ClassMember(String classType, String className, String classMemberValue, String classMemberType )
     {
+        this.classType = classType;
+        this.className = className;
         this.classMemberType = classMemberType;
         this.classMemberValue = classMemberValue;
-        this.className = className;
-        this.classType = classType;
     }
 
 
@@ -79,6 +79,6 @@ public class ClassMember
     @Override
     public String toString()
     {
-        return classType + "  " + className + "  " + classMemberValue + "  " + classMemberType;
+        return className + "  " + classMemberValue + "  " + classMemberType;
     }
 }
