@@ -47,3 +47,6 @@ To ensure that the classes are generated correctly from the SVG diagram you will
 3. Ensure spacing is correct on all members and methods
 4. Ensure Classes, Interfaces and Enums are created by using the correct identifiers in Visio
 
+#### UML SVG class diagram guideline example
+![alt text](https://github.com/Cumminsc9/SVG_Parser/blob/master/src/main/resources/svgDiagrams/PersonStudentLesson.svg "Person Student Lesson UML Class Diagram")
+
