@@ -43,7 +43,7 @@ To ensure that the classes are generated correctly from the SVG diagram you will
 
 1. Classes can't be inline with each other
 2. Ensure that variables and methods contain all relevant information
-⋅⋅* Including; Access type, return type, name, and any arguments required. (See screenshot below)
+  * Including; Access type, return type, name, and any arguments required. (See screenshot below)
 3. Ensure spacing is correct on all members and methods
 4. Ensure Classes, Interfaces and Enums are created by using the correct identifiers in Visio
 
