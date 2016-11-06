@@ -127,7 +127,7 @@ public class BuildClass
 
                 if(method.getMethodName().startsWith("set"))//set method but forgot to place arguements
                 {
-                    sb.append("\t\t//You have forgotten to add the arguments of this method to your UML");
+                    sb.append("\t\t//You have forgotten to add the arguments of this method to your UML Class Diagram");
                 }
                 else
                 {
