@@ -41,10 +41,12 @@ public class ParseMethod
 
                     if( checkForArguments( classValue ) )
                     {
+                        //this method parses the method with arguments and looks for the last occurrence of a ':' and takes the ending returntype
                         returnType = parseArgumentMethodReturnType( classValue );
                     }
                     else
                     {
+                        //this method has no arguments so it just takes the return type after the colon
                         returnType = parseReturnType(classValue);
                     }
 
@@ -83,9 +85,48 @@ public class ParseMethod
         String newStr = stringMethod.substring(stringMethod.indexOf("(")+1,stringMethod.indexOf(")"));
         if(!newStr.matches(".*[a-z].*"))
         {
-            String str4 = stringMethod.substring( 0, stringMethod.indexOf( "(" ) + 1 ) + newStr.trim()
-                    + stringMethod.substring( stringMethod.indexOf( "(" ) + 1, stringMethod.length() ).trim();
-            return str4.split( " " )[3].trim();
+            //if user accidentally doesnt include space after brackets for the :
+            int colonPosition = stringMethod.indexOf(":");
+            char colon = stringMethod.charAt(colonPosition);
+            char previousCharOfColon = stringMethod.charAt(colonPosition - 1);
+            int prevIndex = stringMethod.indexOf(stringMethod.charAt(colonPosition - 1));
+
+            //if user accidentally doesnt include space after :, which breaks the return type
+            int colonPosition2 = stringMethod.indexOf(":");
+            char colon2 = stringMethod.charAt(colonPosition);
+            char previousCharOfColon2 = stringMethod.charAt(colonPosition2 - 1);
+            char afterCharOfColon = stringMethod.charAt(colonPosition2 + 1);
+            //int prevIndex2 = stringMethod.indexOf(stringMethod.charAt(colonPosition2 - 1));
+            int afterIndex2 = stringMethod.indexOf(stringMethod.charAt(colonPosition2 + 1));
+
+            //if the colon has no spaces before add one in, also if it has no space after add one in
+            if(colon == ':' && previousCharOfColon != ' ')
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.append(stringMethod);
+                sb.insert(prevIndex + 1, " ");
+
+                String str4 = sb.toString().substring(0, sb.toString().indexOf("(") + 1) + newStr.trim()
+                        + sb.toString().substring(sb.toString().indexOf("(") + 1, sb.toString().length()).trim();
+                return str4.split(" ")[3].trim();
+
+            }
+            else if(((colon2 == ':' && previousCharOfColon2 == ' ') && afterCharOfColon != ' '))
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.append(stringMethod);
+                sb.insert(afterIndex2, " ");
+
+                String str4 = sb.toString().substring(0, sb.toString().indexOf("(") + 1) + newStr.trim()
+                        + sb.toString().substring(sb.toString().indexOf("(") + 1, sb.toString().length()).trim();
+                return str4.split(" ")[3].trim();
+            }
+            else
+            {
+                String str4 = stringMethod.substring(0, stringMethod.indexOf("(") + 1) + newStr.trim()
+                        + stringMethod.substring(stringMethod.indexOf("(") + 1, stringMethod.length()).trim();
+                return str4.split(" ")[3].trim();
+            }
         }
 
         return stringMethod.split(" ")[3].trim();

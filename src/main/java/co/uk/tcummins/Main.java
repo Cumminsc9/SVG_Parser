@@ -250,6 +250,7 @@ public class Main extends Application
             {
                 startLabel.setText( ex.toString() );
                 pane.requestLayout();
+                ex.printStackTrace();
                 logger.error( "Error: " + ex.toString() );
             }
         }

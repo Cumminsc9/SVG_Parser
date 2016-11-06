@@ -114,6 +114,7 @@ public class BuildClass
         {
             sb.append( "\t" + method.getMethodAccessType() + " " + method.getMethodType() + " " + method.getMethodName() + "(" );
 
+
             if( method.getMethodArguments() == null || method.getMethodArguments().size() < 1 )
             {
                 if(clazzToBuild.getClassType().toLowerCase().equals(Title.INTERFACE.getType().toLowerCase()))
@@ -124,11 +125,19 @@ public class BuildClass
                 sb.append( ")" );
                 sb.append( "\n\t{\n" );
 
-                for( Attribute attribute : clazzToBuild.getClassVariables() )
+                if(method.getMethodName().startsWith("set"))//set method but forgot to place arguements
                 {
-                    if( method.getMethodName().toLowerCase().contains( attribute.getAttributeName().toLowerCase() ) )
+                    sb.append("\t\t//You have forgotten to add the arguments of this method to your UML");
+                }
+                else
+                {
+
+                    for (Attribute attribute : clazzToBuild.getClassVariables())
                     {
-                        sb.append( "\t\treturn " + attribute.getAttributeName() + ";" );
+                        if (method.getMethodName().toLowerCase().contains(attribute.getAttributeName().toLowerCase()))
+                        {
+                            sb.append("\t\treturn " + attribute.getAttributeName() + ";");
+                        }
                     }
                 }
             }
@@ -159,9 +168,20 @@ public class BuildClass
                             sb.append(" )");
                             sb.append("\n\t{\n");
 
-                            for (Attribute attribute : clazzToBuild.getClassVariables()) {
-                                if (key.toLowerCase().contains(attribute.getAttributeName().toLowerCase())) {
-                                    sb.append("\t\tthis." + attribute.getAttributeName() + " = " + key + ";\n");
+                            //needs to iterated keys again
+                            Iterator<Map.Entry<String, String>> iter2 = method.getMethodArguments().entrySet().iterator();
+                            while( iter2.hasNext() )
+                            {
+                                Map.Entry<String, String> entry2 = iter2.next();
+
+                                String key2 = entry2.getKey();
+                                //String value2 = entry.getValue();
+                                for (Attribute attribute : clazzToBuild.getClassVariables())
+                                {
+                                    if (key2.toLowerCase().contains(attribute.getAttributeName().toLowerCase()))
+                                    {
+                                        sb.append("\t\tthis." + attribute.getAttributeName() + " = " + key2 + ";\n");
+                                    }
                                 }
                             }
                         }

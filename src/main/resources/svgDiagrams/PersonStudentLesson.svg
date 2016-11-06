@@ -74,7 +74,7 @@
 			<desc>+ getFirstName() : String</desc>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st4"/>
 			<rect x="0" y="583.272" width="208.346" height="12.0036" class="st5"/>
-			<text x="8.5" y="592.27" class="st6">+ getFirstName(  ) : String</text>		</g>
+			<text x="8.5" y="592.27" class="st6">+ getFirstName(): String</text>		</g>
 		<g id="group9-20" transform="translate(87.874,-302.12)">
 			<title>Class.9</title>
 			<desc>Student</desc>
