@@ -32,9 +32,10 @@ for( String str : stringList )
 ```
 
 1. `{` and `}` should always be on a new line.
-2. After `(` and before `)` a ` ` should exist 
+2. After `(` and before `)` a ` ` (Space) should exist 
 3. Between each method and class declaration there should be two line breaks
-4. Any arguments variables methods should be declared final `public boolean isUserLoggedIn( final String userID )`
+4. Any arguments, variables or methods should be declared final is they are not going to be reassigned 
+`public boolean isUserLoggedIn( final String userID )`
 5. Each tab is equal to **4 spaces**, and everything should be tabbed correctly
 6. Any new code should be commented if immediately it does not make logical sense
 
