@@ -17,7 +17,7 @@ _Name:_ Giovanni Lengiuto
 ## Coding Style Guidelines
 The coding style for the artefact should be kept to specific guidelines.
 ```java
-List<String> stringList = new ArrayList<>();
+final List<String> stringList = new ArrayList<>();
 for( String str : stringList )
 {
     if( str.equalsIgnoreCase( "Hello World!" ) )
@@ -34,7 +34,7 @@ for( String str : stringList )
 1. `{` and `}` should always be on a new line.
 2. After `(` and before `)` a ` ` (Space) should exist 
 3. Between each method and class declaration there should be two line breaks
-4. Any arguments, variables or methods should be declared final is they are not going to be reassigned 
+4. Any arguments, variables or methods should be declared final if they are not going to be reassigned 
 `public boolean isUserLoggedIn( final String userID )`
 5. Each tab is equal to **4 spaces**, and everything should be tabbed correctly
 6. Any new code should be commented if immediately it does not make logical sense
